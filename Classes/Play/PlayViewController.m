@@ -21,6 +21,10 @@ PlayViewController *GlobalPlayViewController;
 @interface PlayViewController ()
 @property (readonly) SpotPlayer * defaultPlayer;
 -(void)backAction:(id)sender;
+
+-(void)startProgress;
+-(void)stopProgress;
+-(void)updateProgress;
 @end
 
 
@@ -74,7 +78,7 @@ PlayViewController *GlobalPlayViewController;
     trackList.sectionIndexMinimumDisplayRowCount = 20;
   [self.navigationItem setTitleView:titleView];
   titleView.delegate = self;
-  
+  self.hidesBottomBarWhenPushed = YES;
   //register self as observer for the default player
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerNotification:) name:nil object:[self defaultPlayer]];
 }
@@ -125,7 +129,10 @@ PlayViewController *GlobalPlayViewController;
 
 -(void)viewDidAppear:(BOOL)animated;
 {
+  self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
 }
+
 -(void)viewWillDisappear:(BOOL)animated;
 {
   self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
@@ -213,6 +220,34 @@ PlayViewController *GlobalPlayViewController;
 	titleView.trackLabel.text = track.title;
 	titleView.albumLabel.text = track.albumName;
   albumArt.artId = track.coverId;
+  timePlayedLabel.text = @"0.0";
+  timeLeftLabel.text = [NSString stringWithFormat:@"%.1f", -track.length];
+  progress = 0;
+  trackLength = track.length;
+  scrubSlider.maximumValue = trackLength;
+}
+
+-(void)startProgress;
+{
+  if(progressTimer) [self stopProgress];
+  progressTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
+}
+
+-(void)stopProgress;
+{
+  [progressTimer invalidate];
+  progressTimer = nil;
+}
+
+-(void)updateProgress;
+{
+  progress += 0.1;
+  
+  NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]  autorelease];
+  [dateFormatter setDateFormat:@"M:S"];
+  timePlayedLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:progress]];
+  timeLeftLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:-(trackLength - progress)/60.0]]; 
+  scrubSlider.value = progress;
 }
 
 -(void)playerNotification:(NSNotification*)n;
@@ -227,16 +262,19 @@ PlayViewController *GlobalPlayViewController;
     [playPauseButton setHidden:NO];
     [waitForPlaySpinner stopAnimating];
     [self selectCurrentTrack];
+    [self startProgress];
   }
   if([[n name] isEqual:@"playbackDidPause"]){
     [playPauseButton setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
     [playPauseButton setHidden:NO];
     [waitForPlaySpinner stopAnimating];
+    [self stopProgress];
   }
   if([[n name] isEqual:@"playbackDidStop"]){
     [playPauseButton setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
     [playPauseButton setHidden:NO];
     [waitForPlaySpinner stopAnimating];
+    [self stopProgress];
   }
   if([[n name] isEqual:@"playlistDidChange"]){
     playlistDataSource.playlist = [[n userInfo] valueForKey:@"playlist"];

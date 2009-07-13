@@ -107,15 +107,17 @@
 
 -(void)showPlaylists;
 {
-  
 }
 
 
 -(void)showPlayer;
 {
-  
+  PlayViewController *playView = [PlayViewController defaultController];
+  if(playView.view.superview){
+    [playView.navigationController popViewControllerAnimated:NO];
+  }
   [self setArrowBackButton];
-  [self pushViewController:[PlayViewController defaultController] animated:YES];
+  [self pushViewController:playView animated:YES];
 }
 
 -(BOOL)openURL:(NSURL*)url;

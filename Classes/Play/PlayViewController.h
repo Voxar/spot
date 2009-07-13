@@ -28,6 +28,14 @@
   
   IBOutlet PlayTitleView *titleView;
   
+  IBOutlet UILabel *timePlayedLabel;
+  IBOutlet UILabel *timeLeftLabel;
+  IBOutlet UISlider *scrubSlider;
+  
+  NSTimer *progressTimer;
+  float progress;
+  float trackLength;
+  
   UITableViewCell *oldTrackCell;
 }
 +defaultController;
