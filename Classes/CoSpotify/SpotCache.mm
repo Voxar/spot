@@ -26,7 +26,7 @@
 {
   if( ! [super init] ) return nil;
   
-  mycache = createCache(std::string("mamma3"), std::vector<uint8_t>());
+  mycache = createCache(std::string("mamma4"), std::vector<uint8_t>());
   
   return self;
 }

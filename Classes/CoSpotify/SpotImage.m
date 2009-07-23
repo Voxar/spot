@@ -58,6 +58,23 @@
   [super dealloc];
 }
 
+-(id)initWithCoder:(NSCoder *)decoder;
+{
+  if(![super initWithCoder:decoder]) return nil;
+  imageId = [[decoder decodeObjectForKey:@"SIimageId"] retain];
+  NSData *imageRep = [decoder decodeObjectForKey:@"SIimageData"];
+  image = [[UIImage alloc] initWithData:imageRep];
+  return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder;
+{
+  [super encodeWithCoder:encoder];
+  [encoder encodeObject:imageId forKey:@"SIimageId"];
+  [encoder encodeObject:UIImagePNGRepresentation(image) forKey:@"SIimageData"];
+}
+
+
 -(UIImage*)cellImage;
 {
   if(!cellImage)
