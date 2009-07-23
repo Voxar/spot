@@ -19,6 +19,9 @@
 
 #import "SpotCell.h"
 
+@interface SearchViewController ()
+@property (nonatomic, assign) UITableViewCell *selectedCellThatIsLoading;
+@end
 
 @implementation SearchViewController
 
@@ -31,8 +34,10 @@
 	
 	self.title = @"Search";
 	self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:0] autorelease];
-	
-    return self;
+  //a spinner to show as accessoryView on selected cells while data for next view is loading
+	loadingSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+  
+  return self;
 }
 
 
@@ -48,6 +53,7 @@
 }
 
 - (void)dealloc {
+  [loadingSpinner release];
     [super dealloc];
 }
 
@@ -152,7 +158,7 @@ enum {
         cell = [[[SpotCell alloc] initWithFrame:CGRectZero reuseIdentifier:SpotCellIdentifier] autorelease];
             
 			SpotArtist *artist = [searchResults.artists objectAtIndex:idx];
-			cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       
       
       [cell setTitle:artist.name
@@ -170,7 +176,7 @@ enum {
         cell = [[[SpotCell alloc] initWithFrame:CGRectZero reuseIdentifier:SpotCellIdentifier] autorelease];
       
 			SpotAlbum *album = [searchResults.albums objectAtIndex:idx];
-			cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       
       [cell setTitle:album.name
             subTitle:album.artistName
@@ -208,23 +214,52 @@ enum {
   return the_cell;
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+  //Don't allow new selection if data is loading
+  if(self.selectedCellThatIsLoading) return nil;
+  
+  return indexPath;
+}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+  //Don't allow deselect if data is loading
+  if(self.selectedCellThatIsLoading) return nil;
+  
+  return indexPath;
+}
+
+-(void)doShowItem:(SpotItem*)item;
+{
+  [self.navigationController showItem:item];
+  self.selectedCellThatIsLoading = nil;
+}
+
+- (void)tableView:(UITableView *)tableView_ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [searchBar resignFirstResponder];
 	int idx = [indexPath indexAtPosition:1];
+  UITableViewCell *cell = [tableView_ cellForRowAtIndexPath:indexPath];
 	switch(showType) {
 		case ShowArtists: {
 			SpotArtist *artist = [searchResults.artists objectAtIndex:idx];
       //Get the fullprofile artist
-      artist = [[SpotSession defaultSession] artistById:artist.id];
-      [self.navigationController showArtist:artist];
+//      artist = [[SpotSession defaultSession] artistById:artist.id];
+      
+      self.selectedCellThatIsLoading = cell;
+      [[SpotSession defaultSession] artistById:artist.id respondTo:self selector:@selector(doShowItem:)];
+      
+      //[self.navigationController showArtist:artist];
 		} break;
 		case ShowAlbums: {
 			SpotAlbum *album = [searchResults.albums objectAtIndex:idx];
       //get the fullprofile album
-      album = [[SpotSession defaultSession] albumById:album.id];
-			[self.navigationController showAlbum:album];
+      //album = [[SpotSession defaultSession] albumById:album.id];
+      self.selectedCellThatIsLoading = cell;
+
+      [[SpotSession defaultSession] albumById:album.id respondTo:self selector:@selector(doShowItem:)];
+//			[self.navigationController showAlbum:album];
 			break;
 		}
 		case ShowTracks: {
@@ -281,6 +316,19 @@ enum {
 
 #pragma mark 
 #pragma mark Accessors
+@synthesize selectedCellThatIsLoading;
+-(void)setSelectedCellThatIsLoading:(UITableViewCell*)cell;
+{
+  if(selectedCellThatIsLoading){
+    selectedCellThatIsLoading.accessoryView = nil;
+    [loadingSpinner stopAnimating];
+  }
+  selectedCellThatIsLoading = cell;
+  if(selectedCellThatIsLoading){
+    selectedCellThatIsLoading.accessoryView = loadingSpinner;
+    [loadingSpinner startAnimating];
+  }
+}
 @synthesize searchResults;
 -(void)setSearchResults:(SpotSearch*)searchResults_;
 {

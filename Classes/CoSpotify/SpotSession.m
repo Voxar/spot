@@ -48,16 +48,25 @@ NSString *SpotSessionErrorDomain = @"SpotSessionErrorDomain";
 
 @implementation SpotSessionFetchJob
 @synthesize fetchId, target, selector;
-
++(id)fetchJobWithId:(NSString *)id_ target:(id)t selector:(SEL)s;
+{
+  return [[[SpotSessionFetchJob alloc] initWithId:id_ target:t selector:s] autorelease];
+}
 -(id)initWithId:(NSString*)id_ target:(id)t selector:(SEL)s;
 {
   if(![super init])return nil;
   
-  fetchId = id_;
+  fetchId = [id_ retain];
   target = t;
   selector = s;
   
   return self;
+}
+
+-(void)dealloc;
+{
+  [fetchId release];
+  [super dealloc];
 }
 
 @end
@@ -255,6 +264,22 @@ void cb_client_callback(int type, void*data){
 
 #pragma mark Get by id functions
 
+-(void)doAsyncArtistById:(SpotSessionFetchJob*)job;
+{
+  SpotArtist *artist = [self artistById:job.fetchId];
+  [job.target performSelectorOnMainThread:job.selector withObject:artist waitUntilDone:NO];
+}
+
+-(void)artistById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
+{
+  SpotItem *item = [cache itemById:id_];
+  if(item)
+    //no need to fetch, call target asap
+    [target performSelector:selector withObject:item];
+  else
+    [self performSelector:@selector(doAsyncArtistById:) onThread:thread withObject:[SpotSessionFetchJob fetchJobWithId:id_ target:target selector:selector] waitUntilDone:NO];
+}
+
 -(SpotArtist *)artistById:(NSString *)id_;
 {
   SpotItem *item = [cache itemById:id_];
@@ -328,6 +353,23 @@ void cb_client_callback(int type, void*data){
   
   return album;
 }
+
+-(void)doAsyncAlbumById:(SpotSessionFetchJob*)job;
+{  
+  SpotAlbum *album = [self albumById:job.fetchId];
+  [job.target performSelectorOnMainThread:job.selector withObject:album waitUntilDone:NO];
+}
+
+-(void)albumById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
+{
+  SpotItem *item = [cache itemById:id_];
+  if(item)
+    //no need to fetch, call target asap
+    [target performSelector:selector withObject:item];
+  else
+    [self performSelector:@selector(doAsyncAlbumById:) onThread:thread withObject:[SpotSessionFetchJob fetchJobWithId:id_ target:target selector:selector] waitUntilDone:NO];
+}
+
 
 -(SpotTrack *)trackById:(NSString *)id_;
 {

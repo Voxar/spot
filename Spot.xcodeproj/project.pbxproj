@@ -60,7 +60,6 @@
 		05A664870FCF1B1B00C8DC40 /* buf.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664450FCF1B1B00C8DC40 /* buf.c */; };
 		05A664880FCF1B1B00C8DC40 /* channel.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664470FCF1B1B00C8DC40 /* channel.c */; };
 		05A664890FCF1B1B00C8DC40 /* commands.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664490FCF1B1B00C8DC40 /* commands.c */; };
-		05A6648B0FCF1B1B00C8DC40 /* despotify.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A6644E0FCF1B1B00C8DC40 /* despotify.c */; };
 		05A6648D0FCF1B1B00C8DC40 /* dns.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664510FCF1B1B00C8DC40 /* dns.c */; };
 		05A6648E0FCF1B1B00C8DC40 /* ezxml.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664530FCF1B1B00C8DC40 /* ezxml.c */; };
 		05A664950FCF1B1B00C8DC40 /* handlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A6645F0FCF1B1B00C8DC40 /* handlers.c */; };
@@ -82,6 +81,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		210998B60FD5C0750028F90F /* PlayView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210998B50FD5C0750028F90F /* PlayView2.xib */; };
 		2141682A0FDC3F0500E71233 /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664690FCF1B1B00C8DC40 /* network.c */; };
+		214889BE101759C5003520AF /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 214889BD101759C5003520AF /* PLBlocks.framework */; };
 		217F97EF0FD9123A00C0A6A4 /* noart.png in Resources */ = {isa = PBXBuildFile; fileRef = 217F97EE0FD9123A00C0A6A4 /* noart.png */; };
 		217F97FB0FD913A700C0A6A4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 217F97FA0FD913A700C0A6A4 /* loading.png */; };
 		21F654200FD12BC6000403F8 /* SpotArtistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F654170FD12BC6000403F8 /* SpotArtistCell.m */; };
@@ -233,6 +233,7 @@
 		1D6058910D05DD3D006BFB54 /* Spot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		210998B50FD5C0750028F90F /* PlayView2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayView2.xib; sourceTree = "<group>"; };
+		214889BD101759C5003520AF /* PLBlocks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLBlocks.framework; path = Vendor/PLBlocks.framework; sourceTree = "<group>"; };
 		217F97EE0FD9123A00C0A6A4 /* noart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noart.png; sourceTree = "<group>"; };
 		217F97FA0FD913A700C0A6A4 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		21F654160FD12BC6000403F8 /* SpotArtistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotArtistCell.h; sourceTree = "<group>"; };
@@ -272,6 +273,7 @@
 				05A664FF0FCF217D00C8DC40 /* libz.1.dylib in Frameworks */,
 				05A665080FCF21D500C8DC40 /* libresolv.dylib in Frameworks */,
 				21F65B330FD1B059000403F8 /* libcrypto.a in Frameworks */,
+				214889BE101759C5003520AF /* PLBlocks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +572,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				214889BD101759C5003520AF /* PLBlocks.framework */,
 				05A664FB0FCF215300C8DC40 /* AudioToolbox.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -712,7 +715,6 @@
 				05A664870FCF1B1B00C8DC40 /* buf.c in Sources */,
 				05A664880FCF1B1B00C8DC40 /* channel.c in Sources */,
 				05A664890FCF1B1B00C8DC40 /* commands.c in Sources */,
-				05A6648B0FCF1B1B00C8DC40 /* despotify.c in Sources */,
 				05A6648D0FCF1B1B00C8DC40 /* dns.c in Sources */,
 				05A6648E0FCF1B1B00C8DC40 /* ezxml.c in Sources */,
 				05A664950FCF1B1B00C8DC40 /* handlers.c in Sources */,
@@ -763,7 +765,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Resources/dist.plist;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -804,7 +809,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Spot_Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -829,11 +837,15 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Spot_Prefix.pch";
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					Vendor/despotify/src/lib,
 					Vendor/libogg/include,
@@ -856,7 +868,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Spot_Prefix.pch";
 				HEADER_SEARCH_PATHS = (

@@ -11,7 +11,7 @@
 @class SpotArtist;
 @class SpotAlbum;
 @class SpotSearch;
-
+@class SpotItem;
 
 @interface SpotNavigationController : UINavigationController {
 
@@ -32,6 +32,8 @@
 -(void)showArtist:(SpotArtist*)artist;
 -(void)showAlbum:(SpotAlbum*)album;
 -(void)showSearch:(SpotSearch*)search;
+-(void)showItem:(SpotItem*)item;
+
 -(void)showPlaylists;
 -(void)showPlayer;
 -(BOOL)checkOpenURL;

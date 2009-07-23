@@ -35,7 +35,7 @@ NSInteger AlbumComparer(SpotAlbum *a, SpotAlbum *b, void * ignore)
 {
 	if( ! [super initWithNibName:@"ArtistBrowseView" bundle:nil])
 		return nil;
-  
+  NSLog(@"Artist: %@", artist_);
 	self.artist = artist_;
 //	self.albums = [artist.albums sortedArrayUsingFunction:AlbumComparer context:NULL];
   

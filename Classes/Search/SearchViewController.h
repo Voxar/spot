@@ -26,6 +26,9 @@ typedef enum{
   SearchShowType showType;
 	
 	SpotSearch *searchResults;
+  
+  UITableViewCell *selectedCellThatIsLoading; //yes horrible name, but it's only assigned from selection until next view is loaded. (note _assign_ not retained)
+  UIActivityIndicatorView *loadingSpinner;
 }
 -(id)initWithSearch:(SpotSearch*)search;
 

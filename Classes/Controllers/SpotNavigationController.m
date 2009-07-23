@@ -105,6 +105,17 @@
   [self pushViewController:[[[SearchViewController alloc] initWithSearch:search] autorelease] animated:YES]; 
 }
 
+-(void)showItem:(SpotItem*)item;
+{
+  if([item isKindOfClass:SpotArtist.class]){
+    [self showArtist:(SpotArtist*)item];
+  } else if([item isKindOfClass:SpotAlbum.class]) {
+    [self showAlbum:(SpotAlbum*)item];
+  } else if([item isKindOfClass:SpotSearch.class]){
+    [self showSearch:(SpotSearch*)item];
+  }
+}
+
 -(void)showPlaylists;
 {
 }

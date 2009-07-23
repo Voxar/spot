@@ -43,9 +43,13 @@
 -(void)asyncImageById:(NSString *)id_ respondTo:(id)object selector:(SEL)selector;
 
 -(SpotArtist *)artistById:(NSString *)id_;
+-(void)artistById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 -(SpotAlbum *)albumById:(NSString *)id;
+-(void)albumById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 -(SpotTrack *)trackById:(NSString *)id;
+-(void)trackById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 -(SpotPlaylist *)playlistById:(NSString *)id;
+-(void)playlistById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 
 -(SpotAlbum*)albumByURI:(SpotURI*)uri;
 -(SpotArtist*)artistByURI:(SpotURI*)uri;
