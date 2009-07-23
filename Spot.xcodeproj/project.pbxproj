@@ -96,6 +96,7 @@
 		21F65B330FD1B059000403F8 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F65B320FD1B059000403F8 /* libcrypto.a */; };
 		21F65B570FD1B564000403F8 /* PlayTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F65B560FD1B564000403F8 /* PlayTitleView.m */; };
 		21F65C9D0FD1CAB8000403F8 /* arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F65C9C0FD1CAB8000403F8 /* arrow-left.png */; };
+		21F6CE8810186FF3008EF265 /* despotify.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A6644E0FCF1B1B00C8DC40 /* despotify.c */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
@@ -738,6 +739,7 @@
 				21F65A8A0FD1A168000403F8 /* audioqueue.c in Sources */,
 				21F65B570FD1B564000403F8 /* PlayTitleView.m in Sources */,
 				2141682A0FDC3F0500E71233 /* network.c in Sources */,
+				21F6CE8810186FF3008EF265 /* despotify.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
