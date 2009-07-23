@@ -1,0 +1,3 @@
+[submodule "Vendor/spotcache"]
+	path = Vendor/spotcache
+	url = http://dev.nevyn.nu/git/spotcache.git

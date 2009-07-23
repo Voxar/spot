@@ -38,6 +38,20 @@
   return [NSString stringWithFormat:@"<SpotArtistBio text: %@ portraits: %@>", text, portraits];
 }
 
+-(id)initWithCoder:(NSCoder *)decoder;
+{
+  if(![super init]) return nil;
+  text = [[decoder decodeObjectForKey:@"ABtext"] retain];
+  portraits = [[decoder decodeObjectForKey:@"ABportraits"] retain];
+  return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder;
+{
+  [encoder encodeObject:text forKey:@"ABtext"];
+  [encoder encodeObject:portraits forKey:@"ABportraits"];
+}
+
 @end
 
 

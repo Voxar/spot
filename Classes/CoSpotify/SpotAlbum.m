@@ -118,9 +118,9 @@
   name = [[decoder decodeObjectForKey:@"SAname"] retain];
   albumId = [[decoder decodeObjectForKey:@"SAalbumId"] retain];
   year = [decoder decodeIntForKey:@"SAyear"];
-  type = [decoder decodeObjectForKey:@"SAtype"];
-  allowedCountries = [decoder decodeObjectForKey:@"SAallowedCountries"];
-  forbiddenCountries = [decoder decodeObjectForKey:@"SAforbiddenCountries"];
+  type = [[decoder decodeObjectForKey:@"SAtype"] retain];
+  allowedCountries = [[decoder decodeObjectForKey:@"SAallowedCountries"] retain];
+  forbiddenCountries = [[decoder decodeObjectForKey:@"SAforbiddenCountries"] retain];
   coverId = [[decoder decodeObjectForKey:@"SAcoverId"] retain];
   popularity = [decoder decodeFloatForKey:@"SApopularity"];
   artistName = [[decoder decodeObjectForKey:@"SAartistName"] retain];

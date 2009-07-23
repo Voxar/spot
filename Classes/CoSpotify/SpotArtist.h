@@ -11,7 +11,7 @@
 #import "despotify.h"
 #import "SpotItem.h"
 
-@interface SpotArtistBio : NSObject
+@interface SpotArtistBio : NSObject <NSCoding>
 {
   NSString *text;
   NSArray *portraits;

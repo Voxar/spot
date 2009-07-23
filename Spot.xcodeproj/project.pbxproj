@@ -89,7 +89,7 @@
 		21F654220FD12BC6000403F8 /* SpotImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F6541B0FD12BC6000403F8 /* SpotImageCell.m */; };
 		21F654230FD12BC6000403F8 /* SpotNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F6541D0FD12BC6000403F8 /* SpotNavigationController.m */; };
 		21F654240FD12BC6000403F8 /* SpotTouchableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F6541F0FD12BC6000403F8 /* SpotTouchableLabel.m */; };
-		21F6543F0FD136FB000403F8 /* SpotCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F6543E0FD136FB000403F8 /* SpotCache.m */; };
+		21F6543F0FD136FB000403F8 /* SpotCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21F6543E0FD136FB000403F8 /* SpotCache.mm */; };
 		21F654A90FD13FAE000403F8 /* SpotImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F654A80FD13FAE000403F8 /* SpotImage.m */; };
 		21F65A8A0FD1A168000403F8 /* audioqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664410FCF1B1B00C8DC40 /* audioqueue.c */; };
 		21F65AC80FD1A327000403F8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F65AC70FD1A327000403F8 /* Default.png */; };
@@ -97,6 +97,14 @@
 		21F65B570FD1B564000403F8 /* PlayTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F65B560FD1B564000403F8 /* PlayTitleView.m */; };
 		21F65C9D0FD1CAB8000403F8 /* arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F65C9C0FD1CAB8000403F8 /* arrow-left.png */; };
 		21F6CE8810186FF3008EF265 /* despotify.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A6644E0FCF1B1B00C8DC40 /* despotify.c */; };
+		21F6CEC710187A74008EF265 /* Cache.cc in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEBE10187A74008EF265 /* Cache.cc */; };
+		21F6CEC810187A74008EF265 /* Sqlite+Blob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEC010187A74008EF265 /* Sqlite+Blob.cpp */; };
+		21F6CEC910187A74008EF265 /* Sqlite+Statement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEC110187A74008EF265 /* Sqlite+Statement.cpp */; };
+		21F6CECA10187A74008EF265 /* Sqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEC210187A74008EF265 /* Sqlite.cpp */; };
+		21F6CECB10187A74008EF265 /* SqliteCache+Partial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEC410187A74008EF265 /* SqliteCache+Partial.cpp */; };
+		21F6CECC10187A74008EF265 /* SqliteCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEC510187A74008EF265 /* SqliteCache.cpp */; };
+		21F6CED710187AA4008EF265 /* md5c.c in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CED610187AA4008EF265 /* md5c.c */; };
+		21F6CEDC10187B17008EF265 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CED910187B17008EF265 /* sqlite3.c */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
@@ -248,7 +256,7 @@
 		21F6541E0FD12BC6000403F8 /* SpotTouchableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotTouchableLabel.h; sourceTree = "<group>"; };
 		21F6541F0FD12BC6000403F8 /* SpotTouchableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotTouchableLabel.m; sourceTree = "<group>"; };
 		21F6543D0FD136FB000403F8 /* SpotCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotCache.h; sourceTree = "<group>"; };
-		21F6543E0FD136FB000403F8 /* SpotCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotCache.m; sourceTree = "<group>"; };
+		21F6543E0FD136FB000403F8 /* SpotCache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpotCache.mm; sourceTree = "<group>"; };
 		21F654A70FD13FAE000403F8 /* SpotImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotImage.h; sourceTree = "<group>"; };
 		21F654A80FD13FAE000403F8 /* SpotImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotImage.m; sourceTree = "<group>"; };
 		21F65AC70FD1A327000403F8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -256,6 +264,22 @@
 		21F65B550FD1B564000403F8 /* PlayTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayTitleView.h; sourceTree = "<group>"; };
 		21F65B560FD1B564000403F8 /* PlayTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayTitleView.m; sourceTree = "<group>"; };
 		21F65C9C0FD1CAB8000403F8 /* arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-left.png"; sourceTree = "<group>"; };
+		21F6CEBE10187A74008EF265 /* Cache.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cache.cc; sourceTree = "<group>"; };
+		21F6CEBF10187A74008EF265 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
+		21F6CEC010187A74008EF265 /* Sqlite+Blob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Sqlite+Blob.cpp"; sourceTree = "<group>"; };
+		21F6CEC110187A74008EF265 /* Sqlite+Statement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Sqlite+Statement.cpp"; sourceTree = "<group>"; };
+		21F6CEC210187A74008EF265 /* Sqlite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sqlite.cpp; sourceTree = "<group>"; };
+		21F6CEC310187A74008EF265 /* Sqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sqlite.h; sourceTree = "<group>"; };
+		21F6CEC410187A74008EF265 /* SqliteCache+Partial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "SqliteCache+Partial.cpp"; sourceTree = "<group>"; };
+		21F6CEC510187A74008EF265 /* SqliteCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SqliteCache.cpp; sourceTree = "<group>"; };
+		21F6CEC610187A74008EF265 /* SqliteCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteCache.h; sourceTree = "<group>"; };
+		21F6CED410187AA4008EF265 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
+		21F6CED510187AA4008EF265 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		21F6CED610187AA4008EF265 /* md5c.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5c.c; sourceTree = "<group>"; };
+		21F6CED910187B17008EF265 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		21F6CEDA10187B17008EF265 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		21F6CEDB10187B17008EF265 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
+		21F6CEDE10187B38008EF265 /* pstdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pstdint.h; path = Vendor/spotcache/vendor/pstdint.h; sourceTree = SOURCE_ROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -351,7 +375,7 @@
 				05447EE70FCF1167004CC539 /* SpotURI.h */,
 				05447EE80FCF1167004CC539 /* SpotURI.m */,
 				21F6543D0FD136FB000403F8 /* SpotCache.h */,
-				21F6543E0FD136FB000403F8 /* SpotCache.m */,
+				21F6543E0FD136FB000403F8 /* SpotCache.mm */,
 			);
 			path = CoSpotify;
 			sourceTree = "<group>";
@@ -415,6 +439,7 @@
 		05447F2B0FCF1173004CC539 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				21F6CEBD10187A74008EF265 /* spotcache */,
 				0591785A100B53FF001402D1 /* profilebg.png */,
 				05447F2C0FCF1173004CC539 /* buttons */,
 				05447F310FCF1173004CC539 /* dist.plist */,
@@ -557,6 +582,48 @@
 			);
 			name = Detail;
 			sourceTree = "<group>";
+		};
+		21F6CEBD10187A74008EF265 /* spotcache */ = {
+			isa = PBXGroup;
+			children = (
+				21F6CEDE10187B38008EF265 /* pstdint.h */,
+				21F6CED810187B17008EF265 /* sqlite */,
+				21F6CED310187AA4008EF265 /* md5 */,
+				21F6CEBE10187A74008EF265 /* Cache.cc */,
+				21F6CEBF10187A74008EF265 /* Cache.h */,
+				21F6CEC010187A74008EF265 /* Sqlite+Blob.cpp */,
+				21F6CEC110187A74008EF265 /* Sqlite+Statement.cpp */,
+				21F6CEC210187A74008EF265 /* Sqlite.cpp */,
+				21F6CEC310187A74008EF265 /* Sqlite.h */,
+				21F6CEC410187A74008EF265 /* SqliteCache+Partial.cpp */,
+				21F6CEC510187A74008EF265 /* SqliteCache.cpp */,
+				21F6CEC610187A74008EF265 /* SqliteCache.h */,
+			);
+			name = spotcache;
+			path = Vendor/spotcache/src;
+			sourceTree = SOURCE_ROOT;
+		};
+		21F6CED310187AA4008EF265 /* md5 */ = {
+			isa = PBXGroup;
+			children = (
+				21F6CED410187AA4008EF265 /* global.h */,
+				21F6CED510187AA4008EF265 /* md5.h */,
+				21F6CED610187AA4008EF265 /* md5c.c */,
+			);
+			name = md5;
+			path = Vendor/spotcache/vendor/md5;
+			sourceTree = SOURCE_ROOT;
+		};
+		21F6CED810187B17008EF265 /* sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				21F6CED910187B17008EF265 /* sqlite3.c */,
+				21F6CEDA10187B17008EF265 /* sqlite3.h */,
+				21F6CEDB10187B17008EF265 /* sqlite3ext.h */,
+			);
+			name = sqlite;
+			path = Vendor/spotcache/vendor/sqlite;
+			sourceTree = SOURCE_ROOT;
 		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
@@ -734,12 +801,20 @@
 				21F654220FD12BC6000403F8 /* SpotImageCell.m in Sources */,
 				21F654230FD12BC6000403F8 /* SpotNavigationController.m in Sources */,
 				21F654240FD12BC6000403F8 /* SpotTouchableLabel.m in Sources */,
-				21F6543F0FD136FB000403F8 /* SpotCache.m in Sources */,
+				21F6543F0FD136FB000403F8 /* SpotCache.mm in Sources */,
 				21F654A90FD13FAE000403F8 /* SpotImage.m in Sources */,
 				21F65A8A0FD1A168000403F8 /* audioqueue.c in Sources */,
 				21F65B570FD1B564000403F8 /* PlayTitleView.m in Sources */,
 				2141682A0FDC3F0500E71233 /* network.c in Sources */,
 				21F6CE8810186FF3008EF265 /* despotify.c in Sources */,
+				21F6CEC710187A74008EF265 /* Cache.cc in Sources */,
+				21F6CEC810187A74008EF265 /* Sqlite+Blob.cpp in Sources */,
+				21F6CEC910187A74008EF265 /* Sqlite+Statement.cpp in Sources */,
+				21F6CECA10187A74008EF265 /* Sqlite.cpp in Sources */,
+				21F6CECB10187A74008EF265 /* SqliteCache+Partial.cpp in Sources */,
+				21F6CECC10187A74008EF265 /* SqliteCache.cpp in Sources */,
+				21F6CED710187AA4008EF265 /* md5c.c in Sources */,
+				21F6CEDC10187B17008EF265 /* sqlite3.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

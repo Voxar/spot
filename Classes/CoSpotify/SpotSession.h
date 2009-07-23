@@ -11,10 +11,9 @@
 #import "SpotPlayer.h"
 #import "SpotURI.h"
 #import "SpotItem.h"
-#import "SpotCache.h"
 #import "SpotImage.h"
 #import "SpotCache.h"
-
+@class SpotCache;
 @class SpotArtist;
 @class SpotAlbum;
 @class SpotTrack;

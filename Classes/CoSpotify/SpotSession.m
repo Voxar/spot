@@ -25,6 +25,7 @@
 #import "SpotImage.h"
 
 #import <UIKit/UIKit.h>
+#import "SpotCache.h"
 
 SpotSession *SpotSessionSingleton;
 
