@@ -169,7 +169,7 @@ NSInteger AlbumComparer(SpotAlbum *a, SpotAlbum *b, void * ignore)
   
 	int idx = [indexPath indexAtPosition:1];
   SpotAlbum *album = [albumList objectAtIndex:idx];
-  cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   NSString *yearString = album.year ? [NSString stringWithFormat:@"%d", album.year] : @"";
   if(![album.type isEqual:@"album"])
     yearString = [NSString stringWithFormat:@"%@ - %@", album.type, yearString];

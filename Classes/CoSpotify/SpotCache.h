@@ -13,9 +13,16 @@
 
 @interface SpotCache : NSObject {
   void *mycache;
+  NSMutableDictionary *memcache;
 }
 
 -(void)addItem:(SpotItem*)item;
 -(SpotItem *)itemById:(NSString*)id;
+
+-(void)purge;
+-(void)didReceiveMemoryWarning:(NSNotification*)n;
+
+-(NSUInteger)diskCacheSize;
+@property (readonly) NSUInteger diskCacheSize;
 
 @end

@@ -105,6 +105,7 @@
 		21F6CECC10187A74008EF265 /* SqliteCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CEC510187A74008EF265 /* SqliteCache.cpp */; };
 		21F6CED710187AA4008EF265 /* md5c.c in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CED610187AA4008EF265 /* md5c.c */; };
 		21F6CEDC10187B17008EF265 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CED910187B17008EF265 /* sqlite3.c */; };
+		21F6D11B1018CCCE008EF265 /* SwitchSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F6D11A1018CCCE008EF265 /* SwitchSettingCell.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
@@ -280,6 +281,8 @@
 		21F6CEDA10187B17008EF265 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		21F6CEDB10187B17008EF265 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		21F6CEDE10187B38008EF265 /* pstdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pstdint.h; path = Vendor/spotcache/vendor/pstdint.h; sourceTree = SOURCE_ROOT; };
+		21F6D1191018CCCE008EF265 /* SwitchSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchSettingCell.h; sourceTree = "<group>"; };
+		21F6D11A1018CCCE008EF265 /* SwitchSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchSettingCell.m; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -420,6 +423,8 @@
 			isa = PBXGroup;
 			children = (
 				05447EFB0FCF1167004CC539 /* Profile.xib */,
+				21F6D1191018CCCE008EF265 /* SwitchSettingCell.h */,
+				21F6D11A1018CCCE008EF265 /* SwitchSettingCell.m */,
 				05447EFC0FCF1167004CC539 /* ProfileViewController.h */,
 				05447EFD0FCF1167004CC539 /* ProfileViewController.m */,
 			);
@@ -439,7 +444,6 @@
 		05447F2B0FCF1173004CC539 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				21F6CEBD10187A74008EF265 /* spotcache */,
 				0591785A100B53FF001402D1 /* profilebg.png */,
 				05447F2C0FCF1173004CC539 /* buttons */,
 				05447F310FCF1173004CC539 /* dist.plist */,
@@ -601,7 +605,7 @@
 			);
 			name = spotcache;
 			path = Vendor/spotcache/src;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		21F6CED310187AA4008EF265 /* md5 */ = {
 			isa = PBXGroup;
@@ -652,6 +656,7 @@
 				21F65B320FD1B059000403F8 /* libcrypto.a */,
 				05A665070FCF21D500C8DC40 /* libresolv.dylib */,
 				05A664350FCF1B1B00C8DC40 /* despotify */,
+				21F6CEBD10187A74008EF265 /* spotcache */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -815,6 +820,7 @@
 				21F6CECC10187A74008EF265 /* SqliteCache.cpp in Sources */,
 				21F6CED710187AA4008EF265 /* md5c.c in Sources */,
 				21F6CEDC10187B17008EF265 /* sqlite3.c in Sources */,
+				21F6D11B1018CCCE008EF265 /* SwitchSettingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

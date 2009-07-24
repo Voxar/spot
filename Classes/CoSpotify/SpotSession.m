@@ -151,8 +151,10 @@ void cb_client_callback(int type, void*data){
   [self startThread];
     
   //load stored playlists
+  //TODO: Move to cache?
+  NSLog(@"Loading playlists");
   playlists = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForFile:@"playlist"]];
-  NSLog(@"got %@ %@", [playlists class], playlists);
+  NSLog(@"loaded %d playlists", playlists.count);
   if([playlists isKindOfClass:[NSArray class]]){
     playlists = [[playlists mutableCopy] retain];
   } else {
@@ -402,6 +404,23 @@ void cb_client_callback(int type, void*data){
   [cache addItem:list];
   return list;
 }
+
+-(void)doAsyncPlaylistById:(SpotSessionFetchJob*)job;
+{  
+  SpotPlaylist *playlist = [self playlistById:job.fetchId];
+  [job.target performSelectorOnMainThread:job.selector withObject:playlist waitUntilDone:NO];
+}
+
+-(void)playlistById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
+{
+  SpotItem *item = [cache itemById:id_];
+  if(item)
+    //no need to fetch, call target asap
+    [target performSelector:selector withObject:item];
+  else
+    [self performSelector:@selector(doAsyncPlaylistById:) onThread:thread withObject:[SpotSessionFetchJob fetchJobWithId:id_ target:target selector:selector] waitUntilDone:NO];
+}
+
 
 #pragma mark Get by uri
 //TODO: support cacheing for uris

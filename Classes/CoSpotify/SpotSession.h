@@ -46,7 +46,7 @@
 -(SpotAlbum *)albumById:(NSString *)id;
 -(void)albumById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 -(SpotTrack *)trackById:(NSString *)id;
--(void)trackById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
+//-(void)trackById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 -(SpotPlaylist *)playlistById:(NSString *)id;
 -(void)playlistById:(NSString *)id_ respondTo:(id)target selector:(SEL)selector;
 

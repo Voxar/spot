@@ -198,7 +198,6 @@
   revision      = [decoder decodeIntForKey:@"SPrevision"];
   checksum      = [decoder decodeIntForKey:@"SPchecksum"];
   slots         = [[decoder decodeObjectForKey:@"SPslots"] retain];
-  NSLog(@"%@", self);
   return self;
 }
 

@@ -68,12 +68,14 @@
   [backButton release];  
 }
 
-- (void)pushNavigationItem:(UIViewController *)item animated:(BOOL)animated;
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-  [super pushViewController:item animated:animated];
+  [super pushViewController:viewController animated:animated];
+  if(viewController == [PlayViewController defaultController]) return; //no button on playView
   if([[SpotSession defaultSession].player isPlaying]){
     //TODO: Use custom view
-    self.topViewController.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Now Playing" style:UIBarButtonItemStyleBordered target:self action:@selector(showPlayer)] autorelease];
+    NSLog(@"pushNav %@", viewController.navigationItem);
+    viewController.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Now Playing" style:UIBarButtonItemStyleBordered target:self action:@selector(showPlayer)] autorelease];
   }  
 }
 
