@@ -14,7 +14,7 @@
 @class SpotItem;
 
 @interface SpotNavigationController : UINavigationController {
-
+  UIBarButtonItem *nowPlayingButton;
 }
 
 -(BOOL)openURL:(NSURL*)url;

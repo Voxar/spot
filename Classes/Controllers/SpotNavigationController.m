@@ -68,14 +68,28 @@
   [backButton release];  
 }
 
+-(UIBarButtonItem*)nowPlayingButton;
+{
+  if(!nowPlayingButton){
+    //return [[[UIBarButtonItem alloc] initWithTitle:@"Now Playing" style:UIBarButtonItemStyleBordered target:self action:@selector(showPlayer)] autorelease];
+    UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom] autorelease];
+    UIImage *image = [UIImage imageNamed:@"nowPlaying2.png"];
+    [button setImage:image forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(showPlayer) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0,0,image.size.width,20)];
+    nowPlayingButton = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+    nowPlayingButton.width = image.size.width;
+  }
+  return nowPlayingButton;
+}
+
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
   [super pushViewController:viewController animated:animated];
   if(viewController == [PlayViewController defaultController]) return; //no button on playView
   if([[SpotSession defaultSession].player isPlaying]){
-    //TODO: Use custom view
     NSLog(@"pushNav %@", viewController.navigationItem);
-    viewController.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Now Playing" style:UIBarButtonItemStyleBordered target:self action:@selector(showPlayer)] autorelease];
+    viewController.navigationItem.rightBarButtonItem = [self nowPlayingButton];
   }  
 }
 
@@ -83,8 +97,8 @@
 {
   UIViewController *old = [super popViewControllerAnimated:animated];
   if([[SpotSession defaultSession].player isPlaying]){
-    //TODO: Use custom view
-    self.topViewController.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Now Playing" style:UIBarButtonItemStyleBordered target:self action:@selector(showPlayer)] autorelease];
+    NSLog(@"popNav");
+    self.topViewController.navigationItem.rightBarButtonItem =  [self nowPlayingButton];
   }
   return old;
 }
