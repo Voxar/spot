@@ -1,77 +1,113 @@
 K 25
 svn:wc:ra_dav:version-url
 V 53
-/svnroot/despotify/!svn/ver/287/src/bindings/ruby/ext
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext
 END
 album.c
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svnroot/despotify/!svn/ver/285/src/bindings/ruby/ext/album.c
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/album.c
 END
 playlist.c
 K 25
 svn:wc:ra_dav:version-url
 V 64
-/svnroot/despotify/!svn/ver/285/src/bindings/ruby/ext/playlist.c
-END
-session.c
-K 25
-svn:wc:ra_dav:version-url
-V 63
-/svnroot/despotify/!svn/ver/287/src/bindings/ruby/ext/session.c
-END
-main.c
-K 25
-svn:wc:ra_dav:version-url
-V 60
-/svnroot/despotify/!svn/ver/276/src/bindings/ruby/ext/main.c
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/playlist.c
 END
 track.c
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svnroot/despotify/!svn/ver/281/src/bindings/ruby/ext/track.c
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/track.c
+END
+search.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/search.c
 END
 album.h
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svnroot/despotify/!svn/ver/284/src/bindings/ruby/ext/album.h
-END
-artist.c
-K 25
-svn:wc:ra_dav:version-url
-V 62
-/svnroot/despotify/!svn/ver/285/src/bindings/ruby/ext/artist.c
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/album.h
 END
 playlist.h
 K 25
 svn:wc:ra_dav:version-url
 V 64
-/svnroot/despotify/!svn/ver/284/src/bindings/ruby/ext/playlist.h
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/playlist.h
 END
-session.h
+artist.c
 K 25
 svn:wc:ra_dav:version-url
-V 63
-/svnroot/despotify/!svn/ver/276/src/bindings/ruby/ext/session.h
-END
-main.h
-K 25
-svn:wc:ra_dav:version-url
-V 60
-/svnroot/despotify/!svn/ver/287/src/bindings/ruby/ext/main.h
+V 62
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/artist.c
 END
 track.h
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svnroot/despotify/!svn/ver/266/src/bindings/ruby/ext/track.h
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/track.h
+END
+search.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/search.h
 END
 artist.h
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svnroot/despotify/!svn/ver/266/src/bindings/ruby/ext/artist.h
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/artist.h
+END
+album_browse.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/album_browse.c
+END
+session.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/session.c
+END
+main.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/main.c
+END
+album_browse.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/album_browse.h
+END
+artist_browse.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/artist_browse.c
+END
+session.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/session.h
+END
+main.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/main.h
+END
+artist_browse.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/ext/artist_browse.h
 END

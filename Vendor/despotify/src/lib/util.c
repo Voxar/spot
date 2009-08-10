@@ -1,5 +1,5 @@
 /*
- * $Id: util.c 182 2009-03-12 08:21:53Z zagor $
+ * $Id: util.c 399 2009-07-29 11:50:46Z noah-w $
  *
  * Various support routines
  *
@@ -100,7 +100,7 @@ ssize_t block_read (int fd, void *buf, size_t nbyte)
 
 	idx = 0;
 	while (idx < nbyte) {
-		if ((n = sock_recv (fd, buf + idx, nbyte - idx)) <= 0) {
+		if ((n = recv (fd, buf + idx, nbyte - idx, 0)) <= 0) {
 			#ifdef __use_posix__
 			if (errno == EINTR)
 				continue;
@@ -119,7 +119,7 @@ ssize_t block_write (int fd, void *buf, size_t nbyte)
 
 	idx = 0;
 	while (idx < nbyte) {
-		if ((n = sock_send (fd, buf + idx, nbyte - idx)) <= 0) {
+		if ((n = send (fd, buf + idx, nbyte - idx, 0)) <= 0) {
 			#ifdef __use_posix__
 			if (errno == EINTR)
 				continue;

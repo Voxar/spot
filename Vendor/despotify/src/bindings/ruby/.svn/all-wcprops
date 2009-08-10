@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 49
-/svnroot/despotify/!svn/ver/287/src/bindings/ruby
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby
 END
 rubify
 K 25
 svn:wc:ra_dav:version-url
 V 56
-/svnroot/despotify/!svn/ver/287/src/bindings/ruby/rubify
+/svnroot/despotify/!svn/ver/350/src/bindings/ruby/rubify
 END
 configure
 K 25

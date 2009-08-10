@@ -1,20 +1,20 @@
 /*
- * $Id: playlist.h 284 2009-03-28 17:42:27Z chripppa $
+ * $Id: playlist.h 350 2009-06-15 16:43:37Z chripppa $
  */
 
 #ifndef __RB_PLAYLIST_H
 #define __RB_PLAYLIST_H
 
 typedef struct {
-	despotify_playlist *real;
+	ds_playlist_t *real;
 	bool ischild;
-} rb_despotify_playlist;
+} rb_ds_playlist;
 
 
-VALUE Init_despotify_playlist(VALUE mDespotify);
-VALUE rb_despotify_playlist_new_from_pl(VALUE session, despotify_playlist *pl, bool ischild);
+VALUE Init_Playlist (VALUE mDespotify);
+VALUE PLAYLIST2VALUE (VALUE session, ds_playlist_t *pl, bool ischild);
 
 #define VALUE2PLAYLIST(obj, var) \
-	Data_Get_Struct ((obj), rb_despotify_playlist, (var))
+	Data_Get_Struct ((obj), rb_ds_playlist, (var))
 
 #endif

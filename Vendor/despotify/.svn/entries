@@ -1,15 +1,15 @@
 9
 
 dir
-326
+425
 https://despotify.svn.sourceforge.net/svnroot/despotify
 https://despotify.svn.sourceforge.net/svnroot/despotify
 
 
 
-2009-05-29T23:32:36.956995Z
-326
-dstien
+2009-08-04T21:35:54.468730Z
+425
+noah-w
 
 
 svn:special svn:externals svn:needs-lock
@@ -34,4 +34,38 @@ dir
 
 web
 dir
+
+README
+file
+
+
+
+
+2009-08-10T17:44:28.000000Z
+50802af46bf425dd615e9e75e9ff3c35
+2009-08-04T11:48:44.556705Z
+420
+noah-w
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2404
 

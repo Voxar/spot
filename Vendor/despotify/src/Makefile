@@ -1,5 +1,5 @@
 #
-# $Id: Makefile 325 2009-05-28 23:14:10Z dstien $
+# $Id: Makefile 392 2009-07-26 18:59:54Z rzr $
 # 
 #
 
@@ -17,7 +17,7 @@ SILENTDIR := -s
 SILENTLIB := --quiet
 endif
 
-INSTALL_PREFIX = /usr
+INSTALL_PREFIX ?= ${DESTDIR}/usr
 LINUX_BACKEND = gstreamer
 
 include Makefile.local.mk
@@ -45,10 +45,17 @@ ifeq ($(firstword $(subst ., ,$(shell $(CC) -dumpversion))), 4)
     CFLAGS += -Wno-pointer-sign
 endif
 
-CLIENTS = clients/simple clients/gateway clients/despotify
-ifneq ($(NOGUI), 1)
-    CLIENTS += clients/maemify
+CLIENTS = clients/simple
+ifeq ($(CLIENT_DESPOTIFY), 1)
+    CLIENTS += clients/despotify
 endif
+ifeq ($(CLIENT_GATEWAY), 1)
+	CLIENTS += clients/gateway
+endif
+ifeq ($(CLIENT_MAEMIFY), 1)
+	CLIENTS += clients/maemify
+endif
+
 SUBDIRS = lib $(CLIENTS)
 
 .PHONY: all clean $(SUBDIRS) install uninstall

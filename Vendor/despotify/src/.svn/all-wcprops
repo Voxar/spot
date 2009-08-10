@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 35
-/svnroot/despotify/!svn/ver/326/src
+/svnroot/despotify/!svn/ver/425/src
 END
 LICENSE
 K 25
@@ -13,23 +13,23 @@ TODO
 K 25
 svn:wc:ra_dav:version-url
 V 40
-/svnroot/despotify/!svn/ver/108/src/TODO
+/svnroot/despotify/!svn/ver/420/src/TODO
 END
 Makefile
 K 25
 svn:wc:ra_dav:version-url
 V 44
-/svnroot/despotify/!svn/ver/325/src/Makefile
+/svnroot/despotify/!svn/ver/392/src/Makefile
 END
 README
 K 25
 svn:wc:ra_dav:version-url
 V 42
-/svnroot/despotify/!svn/ver/209/src/README
+/svnroot/despotify/!svn/ver/424/src/README
 END
 Makefile.local.mk.dist
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svnroot/despotify/!svn/ver/324/src/Makefile.local.mk.dist
+/svnroot/despotify/!svn/ver/419/src/Makefile.local.mk.dist
 END

@@ -74,7 +74,7 @@ NSString *SpotSessionErrorDomain = @"SpotSessionErrorDomain";
 
 #pragma mark callback receivers
 
-void cb_client_callback(int type, void*data){
+void cb_client_callback(int type, void*data, void*dunno){
   NSLog(@"client callback %d", type);
 //  SpotSession *ss = [SpotSession defaultSession];
   switch(type){
@@ -134,8 +134,8 @@ void cb_client_callback(int type, void*data){
 		[self release];
 		return nil;
 	}
-	
-	session = despotify_init_client(cb_client_callback);
+  
+	session = despotify_init_client(cb_client_callback, 0);
 	if( !session) {
 		NSLog(@"Init client failed");
 		[self release];

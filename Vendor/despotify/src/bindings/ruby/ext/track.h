@@ -1,18 +1,19 @@
 /*
- * $Id: track.h 266 2009-03-27 02:36:26Z chripppa $
+ * $Id: track.h 350 2009-06-15 16:43:37Z chripppa $
  */
 
 #ifndef __RB_TRACK_H
 #define __RB_TRACK_H
 
 typedef struct {
-		despotify_track *real;
-} rb_despotify_track;
+	ds_track_t *real;
+	bool ischild;
+} rb_ds_track;
 
-VALUE Init_despotify_track(VALUE mDespotify);
-VALUE rb_despotify_track_new_from_track(despotify_track *t);
+VALUE Init_Track (VALUE mDespotify);
+VALUE TRACK2VALUE(ds_track_t *t, bool ischild);
 
 #define VALUE2TRACK(obj, var) \
-		Data_Get_Struct ((obj), rb_despotify_track, (var))
+		Data_Get_Struct ((obj), rb_ds_track, (var))
 
 #endif

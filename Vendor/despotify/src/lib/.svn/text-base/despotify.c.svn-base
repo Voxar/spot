@@ -26,40 +26,54 @@
 
 bool despotify_init()
 {
-    if (audio_init())
+    DSFYDEBUG("Initializing audio\n");
+    if (audio_init()) {
+        DSFYDEBUG("Failed to initialize audio\n");
         return false;
+    }
 
-    if (network_init() != 0)
+    DSFYDEBUG("Initializing networking\n");
+    if (network_init() != 0) {
+        DSFYDEBUG("Failed to initialize networking\n");
         return false;
+    }
+
     return true;
 }
 
 bool despotify_cleanup()
 {
+    DSFYDEBUG("Uninitializing networking\n");
     if (network_cleanup() != 0)
         return false;
+
     return true;
 }
 
 static void* despotify_thread(void* arg)
 {
     struct despotify_session* ds = arg;
+
+    DSFYDEBUG("Networking thread started\n");
+
     while (1) {
         SESSION* s = ds->session;
         PHEADER hdr;
         unsigned char* payload;
 
-        int err = packet_read(s, &hdr, &payload);
-        if (!err) {
-            err = handle_packet(s, hdr.cmd, payload, hdr.len);
-            DSFYfree(payload); /* Allocated in packet_read() */
-        }
+        if(packet_read(s, &hdr, &payload))
+		break;
+
+        handle_packet(s, hdr.cmd, payload, hdr.len);
+        DSFYfree(payload); /* Allocated in packet_read() */
     }
+
+    DSFYDEBUG("Networking thread exiting\n");
 
     return NULL;
 }
 
-struct despotify_session* despotify_init_client(void(*callback)(int, void*))
+struct despotify_session* despotify_init_client(void(*callback)(struct despotify_session*, int, void*, void*), void* callback_data)
 {
     struct despotify_session* ds = calloc(1,sizeof(struct despotify_session));
     if (!ds)
@@ -69,11 +83,13 @@ struct despotify_session* despotify_init_client(void(*callback)(int, void*))
     if (!ds->session)
         return NULL;
 
+    ds->thread = (pthread_t)0;
     pthread_cond_init(&ds->sync_cond, NULL);
     pthread_mutex_init(&ds->sync_mutex, NULL);
 
     ds->user_info = &ds->session->user_info;
     ds->client_callback = callback;
+    ds->client_callback_data = callback_data;
 
     return ds;
 }
@@ -145,18 +161,34 @@ bool despotify_authenticate(struct despotify_session* ds,
 
 void despotify_exit(struct despotify_session* ds)
 {
+    DSFYDEBUG("Calling despotify_free() and requesting disconnection\n");
     despotify_free(ds, true);
 }
 
 void despotify_free(struct despotify_session* ds, bool should_disconnect)
 {
+    int r;
     assert(ds != NULL && ds->session != NULL);
 
-    if (should_disconnect)
+    if (should_disconnect) {
+        DSFYDEBUG("Disconnection requested, calling session_disconnect()\n");
         session_disconnect(ds->session);
+    }
+
+    if (ds->thread) {
+        DSFYDEBUG("Canceling despotify networking thread\n");
+        r = pthread_cancel(ds->thread);
+        DSFYDEBUG("pthread_cancel() returned %d\n", r);
+    
+        r = pthread_join(ds->thread, NULL);
+        DSFYDEBUG("Joined despotify networking thread, return value is %d\n", r);
+    }
+
 
     session_free(ds->session);
     free(ds);
+
+    DSFYDEBUG("Session uninitialized and free'd\n");
 }
 
 const char* despotify_get_error(struct despotify_session* ds)
@@ -366,7 +398,7 @@ static int despotify_snd_end_callback(void* arg)
 
         /* notify client */
         if (ds->client_callback)
-            ds->client_callback(DESPOTIFY_TRACK_CHANGE, NULL);
+            ds->client_callback(ds, DESPOTIFY_TRACK_CHANGE, ds->track, ds->client_callback_data);
     }
 
     return error;
@@ -862,11 +894,13 @@ void despotify_free_playlist(struct playlist* p)
 struct playlist* despotify_get_stored_playlists(struct despotify_session *ds)
 {
     /* load list of lists */
+    DSFYDEBUG("Requesting meta playlist\n");
     struct playlist* metalist = despotify_get_playlist(ds, NULL);
     struct playlist* root = NULL;
     struct playlist* prev = NULL;
 
     for (struct playlist* p = metalist; p && p->playlist_id[0]; p = p->next) {
+        DSFYDEBUG("Requesting playlist with ID '%s'\n", p->playlist_id);
         struct playlist* new = despotify_get_playlist(ds, p->playlist_id);
         if (prev)
             prev->next = new;

@@ -1,14 +1,14 @@
 9
 
 dir
-326
+425
 https://despotify.svn.sourceforge.net/svnroot/despotify/src/bindings/python
 https://despotify.svn.sourceforge.net/svnroot/despotify
 
 
 
-2009-05-13T10:40:32.659067Z
-316
+2009-06-18T11:08:32.669461Z
+363
 jorgenpt
 has-props
 
@@ -59,6 +59,9 @@ jorgenpt
 
 
 1431
+
+doc
+dir
 
 cambodia.py
 file
@@ -137,10 +140,10 @@ file
 
 
 
-2009-05-26T22:56:11.000000Z
-944247dd95b97d6a2e5fe4eaaca2eadf
-2009-03-12T22:06:12.706395Z
-203
+2009-08-10T17:44:28.000000Z
+c609bea4059dd2d27a684ae05cc51d0b
+2009-05-31T22:33:05.361932Z
+332
 jorgenpt
 has-props
 
@@ -163,7 +166,7 @@ has-props
 
 
 
-1063
+1049
 
 Makefile
 file

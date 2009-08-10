@@ -1,5 +1,5 @@
 /*
- * $Id: network.h 182 2009-03-12 08:21:53Z zagor $
+ * $Id: network.h 399 2009-07-29 11:50:46Z noah-w $
  *
  * Cross platform networking for despotify
  *
@@ -29,10 +29,12 @@
  #include <netdb.h>
 #endif
 
-// socket read, write
-int sock_send (int sock, void *buf, size_t nbyte);
-int sock_recv (int sock, void *buf, size_t nbyte);
-int sock_close (int sock);
+#ifdef __use_winsock__
+#define sock_close(x) closesocket(x)
+#else
+#define sock_close(x) close(x)
+#endif
+
 int network_init (void);
 int network_cleanup (void);
 

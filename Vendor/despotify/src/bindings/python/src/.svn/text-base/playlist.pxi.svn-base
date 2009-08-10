@@ -1,8 +1,15 @@
 # vim: set fileencoding=utf-8 filetype=pyrex :
 
-cdef class Playlist:
+cdef class Playlist(SpotifyObject):
     def __init__(self):
         raise TypeError("This class cannot be instantiated from Python")
+
+    def get_uri(self):
+        cdef char uri_id[23]
+        cdef str id = self.id[:-2] # Remove last two characters from id, as per despotify_playlist_to_uri
+
+        despotify_id2uri(id, uri_id)
+        return 'spotify:user:%s:playlist:%s' % (self.author, uri_id)
 
     property name:
         def __get__(self):
@@ -47,12 +54,12 @@ cdef class RootIterator:
         self.i = self.i + 1
         return retval
 
-cdef class RootList:
+cdef class RootList(SessionStruct):
     def __init__(self):
         raise TypeError("This class cannot be instantiated from Python")
 
     cdef fetch(self):
-        if self.list is None:
+        if self.playlists is None:
             self.data = despotify_get_stored_playlists(self.ds)
             self.playlists = self.playlists_to_list(self.data)
 

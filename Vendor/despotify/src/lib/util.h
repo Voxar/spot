@@ -1,5 +1,5 @@
 /*
- * $Id: util.h 326 2009-05-29 23:32:36Z dstien $
+ * $Id: util.h 423 2009-08-04 12:16:57Z noah-w $
  *
  */
 
@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 #ifdef DEBUG
-#define DSFYDEBUG(...) { FILE *fd = fopen("/tmp/gui.log","at"); fprintf(fd, "%s:%d %s() ", __FILE__, __LINE__, __func__); fprintf(fd, __VA_ARGS__); fclose(fd); }
+#define DSFYDEBUG(...) { FILE *fd = fopen("/tmp/despotify.log","at"); fprintf(fd, "%s:%d %s() ", __FILE__, __LINE__, __func__); fprintf(fd, __VA_ARGS__); fclose(fd); }
 #else
 #define DSFYDEBUG(...)
 #endif

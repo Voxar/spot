@@ -95,12 +95,16 @@
   [bio release];
   
   NSMutableArray *a_albums = [[NSMutableArray alloc] initWithCapacity:artist->num_albums];
+  NSMutableArray *a_albumIds = [[NSMutableArray alloc] initWithCapacity:artist->num_albums];
   if(artist->num_albums > 0){
     for(struct album_browse *album = artist->albums; album != NULL; album = album->next){
-      [a_albums addObject:[[[SpotAlbum alloc] initWithAlbumBrowse:album] autorelease]];
+      SpotAlbum *spotAlbum = [[[SpotAlbum alloc] initWithAlbumBrowse:album] autorelease];
+      [a_albums addObject:spotAlbum];
+      [a_albumIds addObject:spotAlbum.id];
     }
   }
-  albums = a_albums;  
+  albums = a_albums;
+  albumIds = a_albumIds;
 }
 
 -(id)initWithCoder:(NSCoder *)decoder;
@@ -114,7 +118,8 @@
   yearsActive = [[decoder decodeObjectForKey:@"SAyearsActive"] retain];
   popularity = [decoder decodeFloatForKey:@"SApopularity"];
   bios = [[decoder decodeObjectForKey:@"SAbio"] retain];
-  albums = [[decoder decodeObjectForKey:@"SAalbums"] retain];
+  //albums = [[decoder decodeObjectForKey:@"SAalbums"] retain];
+  albumIds = [[decoder decodeObjectForKey:@"SAalbumIds"] retain];
   return self;
 }
 
@@ -129,7 +134,8 @@
   [encoder encodeObject:yearsActive forKey:@"SAyearsActive"];
   [encoder encodeFloat:popularity forKey:@"SApopularity"];
   [encoder encodeObject:bios forKey:@"SAbio"];
-  [encoder encodeObject:albums forKey:@"SAalbums"];
+//  [encoder encodeObject:albums forKey:@"SAalbums"];
+  [encoder encodeObject:albumIds forKey:@"SAalbumIds"];
 }
 
 -(id)initWithArtistBrowse:(struct artist_browse*)artistBrowse_;
@@ -151,7 +157,7 @@
   [genres release];
   [yearsActive release];
   [albums release];
-  
+  [albumIds release];
 	[super dealloc];
 }
 
@@ -185,6 +191,19 @@
 
 -(NSArray *)albums;
 {
+  if(!albums){
+    NSMutableArray *a_albums = [[NSMutableArray alloc] initWithCapacity:[albumIds count]];
+    SpotSession *session = [SpotSession defaultSession];
+    for(NSString *aId in albumIds){
+      SpotAlbum *album = [session albumById:aId];
+      if(album){
+        [a_albums addObject:album];
+      } else {
+        NSLog(@"SpotArtist albums failed to load album with id %@", aId);
+      }
+    }
+    albums = a_albums;
+  }
   return albums;
 }
 

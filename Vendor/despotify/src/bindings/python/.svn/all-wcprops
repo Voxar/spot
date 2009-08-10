@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svnroot/despotify/!svn/ver/316/src/bindings/python
+/svnroot/despotify/!svn/ver/363/src/bindings/python
 END
 LICENSE
 K 25
@@ -25,7 +25,7 @@ setup.py
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/svnroot/despotify/!svn/ver/203/src/bindings/python/setup.py
+/svnroot/despotify/!svn/ver/332/src/bindings/python/setup.py
 END
 Makefile
 K 25

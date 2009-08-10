@@ -1,15 +1,15 @@
 9
 
 dir
-326
+425
 https://despotify.svn.sourceforge.net/svnroot/despotify/src
 https://despotify.svn.sourceforge.net/svnroot/despotify
 
 
 
-2009-05-29T23:32:36.956995Z
-326
-dstien
+2009-08-04T21:35:54.468730Z
+425
+noah-w
 has-props
 
 svn:special svn:externals svn:needs-lock
@@ -63,17 +63,20 @@ has-props
 
 1358
 
+debian
+dir
+
 TODO
 file
 
 
 
 
-2009-05-26T22:56:11.000000Z
-7c0d3bd86da6e8d9e752b25f2e3a62c4
-2009-03-01T16:37:06.300090Z
-108
-despotify
+2009-08-10T17:44:28.000000Z
+8b5907f1a69771e839ecd34e0f62a1aa
+2009-08-04T11:48:44.556705Z
+420
+noah-w
 has-props
 
 
@@ -95,7 +98,7 @@ has-props
 
 
 
-801
+771
 
 lib
 dir
@@ -109,11 +112,11 @@ file
 
 
 
-2009-05-30T16:58:27.000000Z
-eee478b405e1caa0ffa20110a3018827
-2009-05-28T23:14:10.363883Z
-325
-dstien
+2009-08-10T17:44:28.000000Z
+ab5872cad0b456d04255cd17c4fd53ac
+2009-07-26T18:59:54.552914Z
+392
+rzr
 has-props
 
 
@@ -135,7 +138,7 @@ has-props
 
 
 
-1538
+1649
 
 README
 file
@@ -143,11 +146,11 @@ file
 
 
 
-2009-05-26T22:56:11.000000Z
-522957d7f555b5b233e0b2fa6ddc594e
-2009-03-13T14:41:33.850073Z
-209
-chripppa
+2009-08-10T17:44:28.000000Z
+57c9a4d28c6a8ff36d2250c89cbf29cb
+2009-08-04T12:22:18.884289Z
+424
+noah-w
 has-props
 
 
@@ -169,7 +172,7 @@ has-props
 
 
 
-884
+1062
 
 Makefile.local.mk.dist
 file
@@ -177,11 +180,11 @@ file
 
 
 
-2009-05-30T16:58:27.000000Z
-d7f120fb1fd8dc583ff6d1815526d68f
-2009-05-28T21:37:57.938526Z
-324
-hockster
+2009-08-10T17:44:28.000000Z
+b010059cf8b4cf8965cfb27e7f884229
+2009-08-04T11:40:09.031797Z
+419
+noah-w
 
 
 
@@ -203,5 +206,5 @@ hockster
 
 
 
-698
+815
 

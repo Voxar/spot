@@ -1,19 +1,19 @@
 /*
- * $Id: artist.h 266 2009-03-27 02:36:26Z chripppa $
+ * $Id: artist.h 350 2009-06-15 16:43:37Z chripppa $
  */
 
 #ifndef __RB_ARTIST_H
 #define __RB_ARTIST_H
 
 typedef struct {
-	despotify_artist *real;
-} rb_despotify_artist;
+	ds_artist_t *real;
+} rb_ds_artist;
 
 
-VALUE Init_despotify_artist(VALUE mDespotify);
-VALUE rb_despotify_artist_new_from_artist(despotify_artist *a);
+VALUE Init_Artist (VALUE mDespotify);
+VALUE ARTIST2VALUE (ds_artist_t *a);
 
 #define VALUE2ARTIST(obj, var) \
-	Data_Get_Struct ((obj), rb_despotify_artist, (var))
+	Data_Get_Struct ((obj), rb_ds_artist, (var))
 
 #endif

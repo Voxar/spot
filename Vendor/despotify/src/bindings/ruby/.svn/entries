@@ -1,14 +1,14 @@
 9
 
 dir
-326
+425
 https://despotify.svn.sourceforge.net/svnroot/despotify/src/bindings/ruby
 https://despotify.svn.sourceforge.net/svnroot/despotify
 
 
 
-2009-03-28T23:03:44.483083Z
-287
+2009-06-15T16:43:37.570163Z
+350
 chripppa
 has-props
 
@@ -35,10 +35,10 @@ file
 
 
 
-2009-05-26T22:56:11.000000Z
-7b0bc2e4373b817441b076e76088e41c
-2009-03-28T23:03:44.483083Z
-287
+2009-08-10T17:44:28.000000Z
+c5fe7938563ae9f095171c383c014ea9
+2009-06-15T16:43:37.570163Z
+350
 chripppa
 has-props
 
@@ -61,7 +61,7 @@ has-props
 
 
 
-6803
+6770
 
 configure
 file

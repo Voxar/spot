@@ -1,5 +1,5 @@
 /*
- * $Id: gw-core.c 322 2009-05-27 19:18:28Z dstien $
+ * $Id: gw-core.c 333 2009-05-31 22:34:31Z jorgenpt $
  *
  * This is a gateway to the Spotify server, intended for use 
  * in combination with scripted services or HTTP REST.
@@ -939,13 +939,4 @@ SPOTIFYSESSION *spotify_find_http_client (void)
 			return client[i];
 
 	return NULL;
-}
-
-void app_packet_callback (SESSION * s, int cmd, unsigned char *payload,
-			  int len)
-{
-	(void) s;
-	(void) cmd;
-	(void) payload;
-	(void) len;
 }

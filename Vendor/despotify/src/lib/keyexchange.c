@@ -1,5 +1,5 @@
 /*
- * $Id: keyexchange.c 295 2009-04-09 08:48:17Z zagor $
+ * $Id: keyexchange.c 405 2009-07-29 16:05:30Z noah-w $
  *
  */
 
@@ -25,17 +25,20 @@ int read_server_initial_packet (SESSION *);
  */
 int do_key_exchange (SESSION * session)
 {
+	DSFYDEBUG("Sending initial packet from client\n");
 	if (send_client_initial_packet (session)) {
 		DSFYDEBUG("send_client_initial_packet() failed\n");
 		return -1;
 	}
 
+	DSFYDEBUG("Reading initial packet from server\n");
 	int ret = read_server_initial_packet(session);
 	if (ret < 0) {
 		DSFYDEBUG("read_server_initial_packet() failed\n");
 		return ret;
 	}
 
+	DSFYDEBUG("Done\n");
 	return 0;
 }
 
@@ -81,7 +84,7 @@ int send_client_initial_packet (SESSION * session)
 #ifdef DEBUG_LOGIN
 	hexdump8x32 ("initial client packet", b->ptr, b->len);
 #endif
-        ret = sock_send(session->ap_sock, b->ptr, b->len);
+        ret = send (session->ap_sock, b->ptr, b->len, 0);
 	if (ret <= 0) {
 		DSFYDEBUG("connection lost\n");
 		buf_free(b);

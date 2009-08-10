@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 43
-/svnroot/despotify/!svn/ver/326/src/clients
+/svnroot/despotify/!svn/ver/422/src/clients
 END
 depgen.mk
 K 25
@@ -13,5 +13,5 @@ README
 K 25
 svn:wc:ra_dav:version-url
 V 50
-/svnroot/despotify/!svn/ver/209/src/clients/README
+/svnroot/despotify/!svn/ver/422/src/clients/README
 END

@@ -1,5 +1,5 @@
 #
-# $Id: local.mk 324 2009-05-28 21:37:57Z hockster $
+# $Id: local.mk 392 2009-07-26 18:59:54Z rzr $
 # 
 
 LIB_OBJS = aes.lo audio.lo auth.lo buf.lo channel.lo commands.lo dns.lo ezxml.lo handlers.lo keyexchange.lo packet.lo puzzle.lo session.lo shn.lo sndqueue.lo util.lo network.lo despotify.lo sha1.lo hmac.lo xml.lo 
@@ -92,8 +92,9 @@ install: libdespotify.la
 	 
 	$(LT) --mode=install install libdespotify.la $(INSTALL_PREFIX)/lib/libdespotify.la
 	$(LDCONFIG) -n $(INSTALL_PREFIX)/lib
-	
+	install -d $(INSTALL_PREFIX)/include/ 
 	install despotify.h $(INSTALL_PREFIX)/include/
+	install -d $(INSTALL_PREFIX)/lib/pkgconfig/
 	install despotify.pc $(INSTALL_PREFIX)/lib/pkgconfig/despotify.pc
 
 uninstall:

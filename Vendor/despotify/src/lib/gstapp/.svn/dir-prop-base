@@ -1,8 +1,9 @@
 K 10
 svn:ignore
-V 34
+V 40
 gstapp-marshal.h
 gstapp-marshal.c
+*.tmp
 
 K 13
 svn:mergeinfo

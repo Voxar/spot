@@ -1,15 +1,15 @@
 9
 
 dir
-326
+425
 https://despotify.svn.sourceforge.net/svnroot/despotify/src/clients/gateway
 https://despotify.svn.sourceforge.net/svnroot/despotify
 
 
 
-2009-05-27T19:18:28.800067Z
-322
-dstien
+2009-07-29T12:02:55.430582Z
+400
+noah-w
 has-props
 
 svn:special svn:externals svn:needs-lock
@@ -100,11 +100,11 @@ file
 
 
 
-2009-05-30T16:56:08.000000Z
-d241ab021a949670d6b64d6052d745d5
-2009-05-27T19:18:28.800067Z
-322
-dstien
+2009-08-10T17:43:48.000000Z
+a2068488a67a1fbbe131998b7de8194c
+2009-05-31T22:34:31.140734Z
+333
+jorgenpt
 has-props
 
 
@@ -126,7 +126,7 @@ has-props
 
 
 
-23940
+23797
 
 gw-stream.c
 file
@@ -162,40 +162,6 @@ has-props
 
 5592
 
-gw-stream.h
-file
-
-
-
-
-2009-05-26T22:56:10.000000Z
-35f2f81b1ce0187598b57571d9fc38c8
-2009-03-12T08:21:53.346063Z
-182
-zagor
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-326
-
 gw-handlers.c
 file
 
@@ -230,17 +196,17 @@ has-props
 
 486
 
-gw-browse.c
+gw-stream.h
 file
 
 
 
 
 2009-05-26T22:56:10.000000Z
-f238c2a7c903677f8346d8728c31de48
-2009-03-20T21:31:55.618771Z
-225
-dstien
+35f2f81b1ce0187598b57571d9fc38c8
+2009-03-12T08:21:53.346063Z
+182
+zagor
 has-props
 
 
@@ -262,7 +228,7 @@ has-props
 
 
 
-3236
+326
 
 gw-playlist.c
 file
@@ -298,17 +264,51 @@ has-props
 
 1313
 
+gw-browse.c
+file
+
+
+
+
+2009-05-26T22:56:10.000000Z
+f238c2a7c903677f8346d8728c31de48
+2009-03-20T21:31:55.618771Z
+225
+dstien
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3236
+
 local.mk
 file
 
 
 
 
-2009-05-26T22:56:10.000000Z
-a9d5e00d07ec13ae40c8f747ade2ecd1
-2009-03-13T14:41:33.850073Z
-209
-chripppa
+2009-08-10T17:43:48.000000Z
+0bf15a3f7688fd32405e0204fc05d2eb
+2009-07-26T18:59:54.552914Z
+392
+rzr
 has-props
 
 
@@ -330,41 +330,7 @@ has-props
 
 
 
-920
-
-gw-handlers.h
-file
-
-
-
-
-2009-05-26T22:56:10.000000Z
-b682ec0da9c4b86c77123c87e3d00bb3
-2009-03-12T08:21:53.346063Z
-182
-zagor
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-228
+945
 
 gw-search.c
 file
@@ -400,14 +366,14 @@ has-props
 
 2745
 
-gw-browse.h
+gw-handlers.h
 file
 
 
 
 
 2009-05-26T22:56:10.000000Z
-fde40a0db33a4400d2ebf0afe74a9a4a
+b682ec0da9c4b86c77123c87e3d00bb3
 2009-03-12T08:21:53.346063Z
 182
 zagor
@@ -432,7 +398,7 @@ has-props
 
 
 
-213
+228
 
 gw-playlist.h
 file
@@ -467,6 +433,40 @@ has-props
 
 
 202
+
+gw-browse.h
+file
+
+
+
+
+2009-05-26T22:56:10.000000Z
+fde40a0db33a4400d2ebf0afe74a9a4a
+2009-03-12T08:21:53.346063Z
+182
+zagor
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+213
 
 gw.h
 file
@@ -610,11 +610,11 @@ file
 
 
 
-2009-05-26T22:56:10.000000Z
-a9d7bf05c722c915af8c0a112e7b888d
-2009-03-12T08:21:53.346063Z
-182
-zagor
+2009-08-10T17:43:48.000000Z
+e23a4236f34e23cbadb7c15cdcfc4f1d
+2009-07-29T12:02:55.430582Z
+400
+noah-w
 has-props
 
 
@@ -636,7 +636,7 @@ has-props
 
 
 
-3929
+3926
 
 gw-image.c
 file

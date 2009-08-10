@@ -40,6 +40,7 @@
   NSString *yearsActive;
   
   NSArray *albums;
+  NSArray *albumIds;
   
 }
 -(id)initWithArtist:(struct artist*)artist;
