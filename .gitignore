@@ -3,5 +3,7 @@ build
 Spot.xcodeproj/*.mode1v3
 Spot.xcodeproj/*.mode2v3
 Spot.xcodeproj/*.pbxuser
-Vendor/despotify/src/clients/gateway/gateway
-Vendor/despotify/src/clients/simple/simple
+Vendor/despotify/src/clients
+Vendor/despotify/src/bindings
+Vendor/despotify/java
+Vendor/despotify/src/debian

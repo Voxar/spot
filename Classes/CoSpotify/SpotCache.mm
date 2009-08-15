@@ -137,12 +137,12 @@
       NSLog(@"Removing %@", item);
       [memcache removeObjectForKey:item.id]; //Hm. Hope id doesn't change!
     } else if([item retainCount] < 2){
-      NSLog(@"ROFL! cache got object with RetainCount Below ONE");
+      NSLog(@"Hmm. cache got object with RetainCount Below two");
     }
   }
 }
 
--(void)didReceiveMemoryWarning:(NSNotification*)n;
+-(void)didReceiveMemoryWarningNotification:(NSNotification*)n;
 {
   [self purge];
 }

@@ -20,8 +20,7 @@
 -(SpotItem *)itemById:(NSString*)id;
 
 -(void)purge;
--(void)didReceiveMemoryWarning:(NSNotification*)n;
-
+-(void)didReceiveMemoryWarningNotification:(NSNotification*)n;
 -(NSUInteger)diskCacheSize;
 @property (readonly) NSUInteger diskCacheSize;
 

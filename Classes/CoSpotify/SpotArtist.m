@@ -118,7 +118,7 @@
   yearsActive = [[decoder decodeObjectForKey:@"SAyearsActive"] retain];
   popularity = [decoder decodeFloatForKey:@"SApopularity"];
   bios = [[decoder decodeObjectForKey:@"SAbio"] retain];
-  //albums = [[decoder decodeObjectForKey:@"SAalbums"] retain];
+  albums = [[decoder decodeObjectForKey:@"SAalbums"] retain];
   albumIds = [[decoder decodeObjectForKey:@"SAalbumIds"] retain];
   return self;
 }
@@ -134,7 +134,7 @@
   [encoder encodeObject:yearsActive forKey:@"SAyearsActive"];
   [encoder encodeFloat:popularity forKey:@"SApopularity"];
   [encoder encodeObject:bios forKey:@"SAbio"];
-//  [encoder encodeObject:albums forKey:@"SAalbums"];
+  [encoder encodeObject:albums forKey:@"SAalbums"];
   [encoder encodeObject:albumIds forKey:@"SAalbumIds"];
 }
 
