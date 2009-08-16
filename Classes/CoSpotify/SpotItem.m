@@ -48,4 +48,9 @@
   
 }
 
+-(NSString *)name;
+{
+  return @"item";
+}
+
 @end

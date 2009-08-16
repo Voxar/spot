@@ -32,7 +32,6 @@
 +(SpotSearch *)searchFor:(NSString *)searchText session:(SpotSession*)session maxResults:(int)maxResults;
 +(SpotSearch *)searchFor:(NSString *)searchText maxResults:(int)maxResults;
 
--(id)initWithSearchText:(NSString *)searchText session:(SpotSession*)session maxResults:(int)maxResults;
 -(id)initWithSearchResult:(struct search_result*)sr;
 
 //Get next batch of results

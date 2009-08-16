@@ -16,6 +16,8 @@
 -(id)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
 
+-(NSString *)name;
+
 //Ensure that as much data as possible is loaded
 -(void)ensureFullProfile;
 

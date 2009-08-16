@@ -20,23 +20,12 @@
 
 +(SpotSearch *)searchFor:(NSString *)searchText session:(SpotSession*)session maxResults:(int)maxResults;
 {
-  return [[[SpotSearch alloc] initWithSearchText:searchText session:session maxResults:maxResults] autorelease];
+  return [session searchFor:searchText maxResults:maxResults];
 }
 
 +(SpotSearch *)searchFor:(NSString *)searchText maxResults:(int)maxResults;
 {
   return [SpotSearch searchFor:searchText session:[SpotSession defaultSession] maxResults:maxResults];
-}
-
--(id)initWithSearchText:(NSString *)searchText session:(SpotSession*)session_ maxResults:(int)maxResults_;
-{
-  if( ! [super init] ) return nil;
-
-  struct search_result *sr = despotify_search(session_.session, (char*)[searchText UTF8String], maxResults_);
-  if(!sr)
-		NSLog(@"Search Error: %s", session_.session->last_error);
-  
-  return [self initWithSearchResult:sr];;
 }
 
 -(id)initWithSearchResult:(struct search_result*)sr;

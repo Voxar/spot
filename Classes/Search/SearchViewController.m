@@ -21,9 +21,11 @@
 
 @interface SearchViewController ()
 @property (nonatomic, assign) UITableViewCell *selectedCellThatIsLoading;
+@property (nonatomic, retain) NSTimer *quickSearchTimer;
 @end
 
 @implementation SearchViewController
+@synthesize quickSearchTimer;
 
 #pragma mark 
 #pragma mark Memory and init
@@ -62,9 +64,15 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   //UISegmentedControl *header = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Artists", @"Albums", @"Tracks", nil]];
-  tableView.rowHeight = 70;
-  //tableView.tableHeaderView = header;
+  resultsTableView.rowHeight = 70;
+  //resultsTableView.tableHeaderView = header;
   searchBar.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastSearch"];
+  
+  resultsDataSource = [[SearchResultsDataSource alloc] init];
+  resultsTableView.dataSource = resultsDataSource;
+  
+  suggestionDataSource = [[SearchSuggestionDataSource alloc] init];
+  whileSearchingView.dataSource = suggestionDataSource;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -97,121 +105,11 @@
     [self searchForString:searchBar.text];
 }
 
+
+#pragma mark TableView delegate
 -(void)viewWillDisappear:(BOOL)animated;
 {
 	[self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-#pragma mark 
-#pragma mark Table view callbacks
-enum {
-  SuggestionSection,
-	ArtistsSection,
-	AlbumsSection,
-  TracksSection
-};
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if( ! [SpotSession defaultSession].loggedIn || !searchResults) return 1;
-	return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
-{
-  return 0;
-}
-
-// Customize the number of rows in the table view.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-{
-	if( ! [SpotSession defaultSession].loggedIn || !searchResults) return 0;
-	
-	switch (showType) {
-		case ShowArtists: return searchResults.artists.count;
-		case ShowAlbums:  return searchResults.albums.count;
-		case ShowTracks:  return searchResults.tracks.count;
-	}
-	return 0;	
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;    // fixed font style. use custom view (UILabel) if you want something different
-{
-	if( ! [SpotSession defaultSession].loggedIn || !searchResults) return @"Search results";
-	
-	return @"???";
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView_ cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-  static NSString *SpotCellIdentifier = @"AlbumCell";
-  UITableViewCell *the_cell = nil;
-  
-  BOOL loadImage = [[NSUserDefaults standardUserDefaults] boolForKey:@"coversInSearch"];
-
-	int idx = [indexPath indexAtPosition:1]; idx = idx;
-	switch(showType) {
-		case ShowArtists: {
-      SpotCell *cell = (SpotCell *)[tableView dequeueReusableCellWithIdentifier:SpotCellIdentifier];
-      if (cell == nil) 
-        cell = [[[SpotCell alloc] initWithFrame:CGRectZero reuseIdentifier:SpotCellIdentifier] autorelease];
-            
-			SpotArtist *artist = [searchResults.artists objectAtIndex:idx];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-      
-      
-      [cell setTitle:artist.name
-            subTitle:artist.genres
-         bottomTitle:artist.yearsActive
-          popularity:artist.popularity 
-               image:loadImage
-             imageId:loadImage ? artist.portraitId : nil];
-      
-      the_cell = cell;
-		} break;
-		case ShowAlbums: {
-      SpotCell *cell = (SpotCell *)[tableView dequeueReusableCellWithIdentifier:SpotCellIdentifier];
-      if(!cell)
-        cell = [[[SpotCell alloc] initWithFrame:CGRectZero reuseIdentifier:SpotCellIdentifier] autorelease];
-      
-			SpotAlbum *album = [searchResults.albums objectAtIndex:idx];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-      
-      [cell setTitle:album.name
-            subTitle:album.artistName
-         bottomTitle:album.year ? [NSString stringWithFormat:@"%d", album.year] : nil
-          popularity:album.popularity 
-               image:loadImage 
-             imageId:loadImage ? album.coverId : nil];
-      
-      if(!album.allowed){
-        cell.bottomTitle.text = @"Unavailable in your country";
-      }
-      
-      the_cell = cell;
-		} break;
-    case ShowTracks: {
-      SpotCell *cell = (SpotCell *)[tableView dequeueReusableCellWithIdentifier:SpotCellIdentifier];
-      if(!cell)
-        cell = [[[SpotCell alloc] initWithFrame:CGRectZero reuseIdentifier:SpotCellIdentifier] autorelease];
-      
-			SpotTrack *track = [searchResults.tracks objectAtIndex:idx];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			//cell.text = [NSString stringWithFormat:@"%@", track.title];
-      [cell setTitle:track.title 
-            subTitle:track.artist.name 
-         bottomTitle:track.albumName 
-          popularity:track.popularity 
-               image:NO 
-             imageId:nil];
-      
-      the_cell = cell;
-		} break;
-      
-	}
-
-  return the_cell;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -238,48 +136,94 @@ enum {
 
 - (void)tableView:(UITableView *)tableView_ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  [searchBar resignFirstResponder];
-	int idx = [indexPath indexAtPosition:1];
-  UITableViewCell *cell = [tableView_ cellForRowAtIndexPath:indexPath];
-	switch(showType) {
-		case ShowArtists: {
-			SpotArtist *artist = [searchResults.artists objectAtIndex:idx];
-      //Get the fullprofile artist
-//      artist = [[SpotSession defaultSession] artistById:artist.id];
-      
-      self.selectedCellThatIsLoading = cell;
-      [[SpotSession defaultSession] artistById:artist.id respondTo:self selector:@selector(doShowItem:)];
-      
-      //[self.navigationController showArtist:artist];
-		} break;
-		case ShowAlbums: {
-			SpotAlbum *album = [searchResults.albums objectAtIndex:idx];
-      //get the fullprofile album
-      //album = [[SpotSession defaultSession] albumById:album.id];
-      self.selectedCellThatIsLoading = cell;
+  if(tableView_ == resultsTableView){
+    [searchBar resignFirstResponder];
+    int idx = [indexPath indexAtPosition:1];
+    UITableViewCell *cell = [tableView_ cellForRowAtIndexPath:indexPath];
+    switch(resultsDataSource.showType) {
+      case ShowArtists: {
+        SpotArtist *artist = [searchResults.artists objectAtIndex:idx];
+        //Get the fullprofile artist
+  //      artist = [[SpotSession defaultSession] artistById:artist.id];
+        
+        self.selectedCellThatIsLoading = cell;
+        [[SpotSession defaultSession] artistById:artist.id respondTo:self selector:@selector(doShowItem:)];
+        
+        //[self.navigationController showArtist:artist];
+      } break;
+      case ShowAlbums: {
+        SpotAlbum *album = [searchResults.albums objectAtIndex:idx];
+        //get the fullprofile album
+        //album = [[SpotSession defaultSession] albumById:album.id];
+        self.selectedCellThatIsLoading = cell;
 
-      [[SpotSession defaultSession] albumById:album.id respondTo:self selector:@selector(doShowItem:)];
-//			[self.navigationController showAlbum:album];
-			break;
-		}
-		case ShowTracks: {
-			SpotTrack *track = [searchResults.tracks objectAtIndex:idx];
-      SpotPlaylist *playlist = [[[SpotPlaylist alloc] initWithName:searchResults.query author:@"search" tracks:searchResults.tracks] autorelease];
-			[[SpotSession defaultSession].player playPlaylist:playlist firstTrack:track];
-      [self.navigationController showPlayer];
-		} break;
-	}
+        [[SpotSession defaultSession] albumById:album.id respondTo:self selector:@selector(doShowItem:)];
+  //			[self.navigationController showAlbum:album];
+        break;
+      }
+      case ShowTracks: {
+        SpotTrack *track = [searchResults.tracks objectAtIndex:idx];
+        SpotPlaylist *playlist = [[[SpotPlaylist alloc] initWithName:searchResults.query author:@"search" tracks:searchResults.tracks] autorelease];
+        [[SpotSession defaultSession].player playPlaylist:playlist firstTrack:track];
+        [self.navigationController showPlayer];
+      } break;
+    }
+  } else if(tableView_ == whileSearchingView){
+    NSString *suggestion = [suggestionDataSource.suggestions objectAtIndex:indexPath.row];
+    searchBar.text = suggestion;
+  }
 }
 
 #pragma mark 
 #pragma mark Search bar callbacks
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
 {
+
 	return [SpotSession defaultSession].loggedIn == YES;
 }
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar_;
+{
+  [self.view addSubview:whileSearchingView];
+  if(searchBar_.text)
+    suggestionDataSource.searchResults = [SpotSearch searchFor:searchBar_.text maxResults:5];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+  [quickSearchTimer invalidate];
+  self.quickSearchTimer = nil;
+  
+  [whileSearchingView removeFromSuperview];
+}
+
+-(void)receiveAsyncSearch:(SpotSearch *)search;
+{
+  suggestionDataSource.searchResults = search;
+}
+
+-(void)doQuickSearch:(NSTimer*)theTimer;
+{
+  self.quickSearchTimer = nil;
+  NSString *searchText = [theTimer.userInfo objectForKey:@"text"];
+//  suggestionDataSource.searchResults = [SpotSearch searchFor:searchText maxResults:5];
+  [[SpotSession defaultSession] searchFor:searchText maxResults:5 respondTo:self selector:@selector(receiveAsyncSearch:)];
+  [whileSearchingView reloadData];  
+}
+
 - (void)searchBar:(UISearchBar *)searchBar_ textDidChange:(NSString *)searchText;
 {
 	// Do short search maybe
+  [quickSearchTimer invalidate];
+  self.quickSearchTimer = nil;
+  
+  if([searchText length] > 0){
+    self.quickSearchTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doQuickSearch:) userInfo:[NSDictionary dictionaryWithObject:searchText forKey:@"text"] repeats:NO];
+  } else {
+    suggestionDataSource.searchResults = nil;
+    //Show latest searches
+    [whileSearchingView reloadData];
+  }
 }
 
 -(void)searchForString:(NSString*)string;
@@ -291,17 +235,38 @@ enum {
   //save last search if it generated any results
   if(searchResults && searchResults.totalAlbums || searchResults.totalTracks || searchResults.totalArtists){
     [[NSUserDefaults standardUserDefaults] setObject:string forKey:@"lastSearch"];
+    NSMutableArray *latest = [[[NSUserDefaults standardUserDefaults] objectForKey:@"latestSearches"] mutableCopy];
+    if(![latest containsObject:string]){
+      if(!latest) latest = [NSMutableArray array];
+      
+        [latest insertObject:string atIndex:0];
+      while(latest.count > 10){
+        [latest removeLastObject];
+      }
+      [[NSUserDefaults standardUserDefaults] setObject:latest forKey:@"latestSearches"];
+      NSLog(@"saved latest:%@", latest);
+    }
   }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar_;  
 {
+  [quickSearchTimer invalidate];
+  self.quickSearchTimer = nil;
+  
   [searchBar resignFirstResponder];
   [self searchForString:[searchBar_ text]];
+  [whileSearchingView reloadData];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar_;  
 {
+  [quickSearchTimer invalidate];
+  self.quickSearchTimer = nil;
+  
+  if(searchResults)
+    searchBar.text = searchResults.query;
+  
   [searchBar resignFirstResponder];
 }
 
@@ -310,8 +275,8 @@ enum {
 {
   [searchBar resignFirstResponder];
   UISegmentedControl *e = sender;
-  showType = (SearchShowType)e.selectedSegmentIndex;
-  [tableView reloadData];
+  resultsDataSource.showType = (SearchShowType)e.selectedSegmentIndex;
+  [resultsTableView reloadData];
 }
 
 #pragma mark 
@@ -329,13 +294,16 @@ enum {
     [loadingSpinner startAnimating];
   }
 }
+
 @synthesize searchResults;
 -(void)setSearchResults:(SpotSearch*)searchResults_;
 {
 	[searchResults_ retain];
   [searchResults release];
   searchResults = searchResults_;
-  NSLog(@"SearchResults: %@", searchResults);
-	[tableView reloadData];
+  
+  resultsDataSource.searchResults = searchResults;
+  
+	[resultsTableView reloadData];
 }
 @end

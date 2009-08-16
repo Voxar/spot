@@ -39,6 +39,9 @@
 -(NSArray*)playlists;
 
 
+-(SpotSearch *)searchFor:(NSString *)searchText maxResults:(int)maxResults;
+-(void)searchFor:(NSString *)searchText maxResults:(int)maxResults respondTo:(id)target selector:(SEL)selector;
+
 -(void)asyncImageById:(NSString *)id_ respondTo:(id)object selector:(SEL)selector;
 
 -(SpotArtist *)artistById:(NSString *)id_;

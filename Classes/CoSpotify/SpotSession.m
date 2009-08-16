@@ -38,17 +38,18 @@ NSString *SpotSessionErrorDomain = @"SpotSessionErrorDomain";
   NSString *fetchId;
   id target;
   SEL selector;
+  NSUInteger maxResults;
 }
 
 -(id)initWithId:(NSString*)id target:(id)t selector:(SEL)s;
 @property (nonatomic, readonly) NSString *fetchId;
 @property (nonatomic, readonly) id target;
 @property (nonatomic, readonly) SEL selector;
-
+@property (nonatomic) NSUInteger maxResults;
 @end
 
 @implementation SpotSessionFetchJob
-@synthesize fetchId, target, selector;
+@synthesize fetchId, target, selector, maxResults;
 +(id)fetchJobWithId:(NSString *)id_ target:(id)t selector:(SEL)s;
 {
   return [[[SpotSessionFetchJob alloc] initWithId:id_ target:t selector:s] autorelease];
@@ -74,7 +75,7 @@ NSString *SpotSessionErrorDomain = @"SpotSessionErrorDomain";
 
 #pragma mark callback receivers
 
-void cb_client_callback(int type, void*data, void*dunno){
+void cb_client_callback(struct despotify_session *session, int type, void*data, void*dunno){
   NSLog(@"client callback %d", type);
 //  SpotSession *ss = [SpotSession defaultSession];
   switch(type){
@@ -126,7 +127,7 @@ void cb_client_callback(int type, void*data, void*dunno){
 	if( ! [super init] ) return nil;
   
   //This is just to try to wake up the network
-  [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"]];
+  [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSUTF8StringEncoding error:nil];
 
 	
 	if(!despotify_init()) {
@@ -263,6 +264,42 @@ void cb_client_callback(int type, void*data, void*dunno){
 -(NSDate*)lastPing;
 {
 	return [NSDate dateWithTimeIntervalSince1970:session->user_info->last_ping];
+}
+
+-(void)doAsyncSearchFor:(SpotSessionFetchJob*)job;
+{
+  SpotSearch *search = [self searchFor:job.fetchId maxResults:job.maxResults];
+  [job.target performSelectorOnMainThread:job.selector withObject:search waitUntilDone:NO];
+}
+
+-(void)searchFor:(NSString *)searchText maxResults:(int)maxResults respondTo:(id)target selector:(SEL)selector;
+{
+  /*
+  SpotItem *item = [cache itemById:id_];
+  if(item)
+    //no need to fetch, call target asap
+    [target performSelector:selector withObject:item];
+  else
+   */
+  SpotSessionFetchJob *job = [SpotSessionFetchJob fetchJobWithId:searchText target:target selector:selector];
+  job.maxResults = maxResults;
+  [self performSelector:@selector(doAsyncSearchFor:) onThread:thread withObject:job waitUntilDone:NO];
+}
+
+-(SpotSearch *)searchFor:(NSString *)searchText maxResults:(int)maxResults;
+{
+  
+  struct search_result *sr;
+  [networkLock lock];
+  sr = despotify_search(session, (char*)[searchText UTF8String], maxResults);
+  [networkLock unlock];
+  
+  if(!sr){
+		NSLog(@"Search Error: %s", session->last_error);
+    return nil;
+  }
+  
+  return [[[SpotSearch alloc] initWithSearchResult:sr] autorelease];
 }
 
 #pragma mark Get by id functions

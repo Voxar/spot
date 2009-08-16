@@ -11,21 +11,24 @@
 #import "SpotPlaylist.h"
 #import "SpotSearch.h"
 
-typedef enum{
-  ShowArtists,
-  ShowAlbums,
-  ShowTracks
-}SearchShowType;
+#import "SearchResultsDataSource.h"
+#import "SearchSuggestionDataSource.h"
 
-@interface SearchViewController : UIViewController
-	<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+
+
+@interface SearchViewController : UIViewController <UITableViewDelegate, UISearchBarDelegate>
 {
-	IBOutlet UITableView *tableView;
+	IBOutlet UITableView *resultsTableView;
 	IBOutlet UISearchBar *searchBar;
+  IBOutlet UITableView *whileSearchingView;
   
-  SearchShowType showType;
+  NSTimer *quickSearchTimer;
 	
 	SpotSearch *searchResults;
+  
+  SearchResultsDataSource *resultsDataSource;
+  SearchSuggestionDataSource *suggestionDataSource;
+  
   
   UITableViewCell *selectedCellThatIsLoading; //yes horrible name, but it's only assigned from selection until next view is loaded. (note _assign_ not retained)
   UIActivityIndicatorView *loadingSpinner;

@@ -114,6 +114,11 @@
   return &m_de_track;
 }
 
+-(NSString *)name;
+{
+  return title;
+}
+
 #pragma mark NSCoding
 
 -(id)initWithCoder:(NSCoder *)decoder;
