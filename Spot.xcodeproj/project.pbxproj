@@ -81,7 +81,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		210998B60FD5C0750028F90F /* PlayView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210998B50FD5C0750028F90F /* PlayView2.xib */; };
 		2141682A0FDC3F0500E71233 /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = 05A664690FCF1B1B00C8DC40 /* network.c */; };
-		214889BE101759C5003520AF /* PLBlocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 214889BD101759C5003520AF /* PLBlocks.framework */; };
 		217F97EF0FD9123A00C0A6A4 /* noart.png in Resources */ = {isa = PBXBuildFile; fileRef = 217F97EE0FD9123A00C0A6A4 /* noart.png */; };
 		217F97FB0FD913A700C0A6A4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 217F97FA0FD913A700C0A6A4 /* loading.png */; };
 		21AAF2C3101DA03D001EA66D /* nowPlaying2.png in Resources */ = {isa = PBXBuildFile; fileRef = 21AAF2C1101DA03D001EA66D /* nowPlaying2.png */; };
@@ -248,7 +247,6 @@
 		1D6058910D05DD3D006BFB54 /* Spot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		210998B50FD5C0750028F90F /* PlayView2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayView2.xib; sourceTree = "<group>"; };
-		214889BD101759C5003520AF /* PLBlocks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PLBlocks.framework; path = Vendor/PLBlocks.framework; sourceTree = "<group>"; };
 		217F97EE0FD9123A00C0A6A4 /* noart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noart.png; sourceTree = "<group>"; };
 		217F97FA0FD913A700C0A6A4 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		21AAF2C1101DA03D001EA66D /* nowPlaying2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nowPlaying2.png; sourceTree = "<group>"; };
@@ -313,7 +311,6 @@
 				05A664FF0FCF217D00C8DC40 /* libz.1.dylib in Frameworks */,
 				05A665080FCF21D500C8DC40 /* libresolv.dylib in Frameworks */,
 				21F65B330FD1B059000403F8 /* libcrypto.a in Frameworks */,
-				214889BE101759C5003520AF /* PLBlocks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,7 +660,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				214889BD101759C5003520AF /* PLBlocks.framework */,
 				05A664FB0FCF215300C8DC40 /* AudioToolbox.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
