@@ -16,9 +16,21 @@ Please follow these recommendations, or I might not be able to pull changes from
 - Make atomic commits. One feature per commit.
 - If you change a .xib or .xcodeproj, describe the change thorougly so I can reproduce it, as it'll probably not merge cleanly and I'll have to remake it manually
 
+Compiling
+------------------------
+Githubs source download doesn't get you the full source. Some submodule dependencies are missing.
+
+1. Install git
+1. git clone git://github.com/nevyn/spot.git  (OR from voxar: git clone git://github.com/Voxar/spot.git)
+1. checkout submodules: git submodule init; git submodule update
+1. open xcode and compile.
+1. If compile fails with errors regarding libogg and/or libvorbis, you might need to ´make install´ libogg and/or libvorbis. Let us know if you need to do this. They are in the Vendor folder.
+
+
 Known bugs
 ------------------------
 - Playlists don't work (despotify need fixing)
+- If despotify looses connection to Spotify, you need to restart Spot (you'll notice by music stopping and Spot stalling on search)
 
 
 TODO
