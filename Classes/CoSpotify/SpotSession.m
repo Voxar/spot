@@ -66,7 +66,7 @@ NSString *SpotSessionErrorDomain = @"SpotSessionErrorDomain";
 }
 
 -(void)dealloc;
-{
+{ 
   [fetchId release];
   [super dealloc];
 }
@@ -102,6 +102,8 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
 
 -(void)startThread;
 -(void)stopThread;
+-(void)ping;
+-(void)pingResponse:(id)s;
 @end
 
 
@@ -121,6 +123,7 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
 	
 	return SpotSessionSingleton;
 }
+
 
 -(id)init;
 {
@@ -168,6 +171,8 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
 
 -(void)dealloc;
 {
+  [pingTimer invalidate];
+  [pingTimer release];
   [self stopThread];
 	NSLog(@"Logged out");
   [player release];
@@ -185,6 +190,24 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
 	SpotSessionSingleton = nil;
 }
 
+-(BOOL)reconnect;
+{
+  //clear network jobs
+  [self stopThread];
+  [self startThread];
+  session_disconnect(session);
+  session_free(session);
+  session = despotify_init_client(cb_client_callback, self);
+  return [self authenticate];
+}
+
+-(BOOL)authenticate;
+{
+  NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+  NSString *pass = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+  return [self authenticate:user password:pass error:nil];
+}
+
 -(BOOL)authenticate:(NSString *)user password:(NSString*)password error:(NSError**)error;
 {
   [networkLock lock];
@@ -200,6 +223,9 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
 	
 	[self performSelector:@selector(checkPremium) withObject:nil afterDelay:1.0];
   
+  //start pinging
+ // pingTimer = [[NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(ping) userInfo:nil repeats:YES] retain];
+  
 	return success;
 }
 -(void)checkPremium;
@@ -208,13 +234,39 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account" message:[NSString stringWithFormat:@"You need a Premium account to use Spot. (You have %@)\nPlease visit spotify.com and upgrade.", self.accountType] delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     [alert show];
   }
-	
 }
 
 -(void)receivedXML:(NSString*)xmlString;
 {
 //  NSLog(@"Got some XML:\n%@", xmlString);
  
+}
+
+-(void)pingResponse:(id)s;
+{
+  NSLog(@"pong");
+  isPinging = NO;
+}
+
+-(void)ping;
+{
+  if(isPinging){
+    //Didnt get answer from last ping yet, so it's borked!
+    UIAlertView *connectionFail = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:@"The connectino to spotify seems to be lost. Trying to reconnect" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    [connectionFail show];
+    [pingTimer invalidate];
+    [pingTimer release];
+    pingTimer = nil;
+    
+    
+    [connectionFail dismissWithClickedButtonIndex:0 animated:YES];
+    
+    return;
+  }
+  NSLog(@"ping");
+  isPinging=YES;
+  //does a search to check that connection is live
+  [self searchFor:@"hello" maxResults:1 respondTo:self selector:@selector(pingResponse:)];
 }
 
 -(NSArray*)playlists;
@@ -288,11 +340,16 @@ void cb_client_callback(struct despotify_session *session, int type, void*data, 
 
 -(SpotSearch *)searchFor:(NSString *)searchText maxResults:(int)maxResults;
 {
-  
+  if (!searchText || searchText.length == 0) {
+    NSLog(@"Tried to search for empty string or nil");
+    return nil;
+  }
   struct search_result *sr;
+  NSLog(@"START SEARCH");
   [networkLock lock];
   sr = despotify_search(session, (char*)[searchText UTF8String], maxResults);
   [networkLock unlock];
+  NSLog(@"STOP SEARCH");
   
   if(!sr){
 		NSLog(@"Search Error: %s", session->last_error);

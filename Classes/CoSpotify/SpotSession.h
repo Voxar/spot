@@ -30,10 +30,16 @@
   SpotCache *cache;
   
   NSMutableArray *playlists;
+  
+  BOOL isPinging;
+  NSTimer *pingTimer;
 }
+
 +(SpotSession*)defaultSession;
 -(void)cleanup;
 
+-(BOOL)reconnect;
+-(BOOL)authenticate;
 -(BOOL)authenticate:(NSString *)user password:(NSString*)password error:(NSError**)error;
 
 -(NSArray*)playlists;

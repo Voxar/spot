@@ -171,6 +171,7 @@
   } else if(tableView_ == whileSearchingView){
     NSString *suggestion = [suggestionDataSource.suggestions objectAtIndex:indexPath.row];
     searchBar.text = suggestion;
+    [self searchBarSearchButtonClicked:searchBar];
   }
 }
 
@@ -178,15 +179,34 @@
 #pragma mark Search bar callbacks
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
 {
-
 	return [SpotSession defaultSession].loggedIn == YES;
+}
+
+-(void)receiveAsyncSearch:(SpotSearch *)search;
+{
+  NSLog(@"received searchresults");
+  suggestionDataSource.searchResults = search;
+  isSearching = NO;
+  [whileSearchingView reloadData];
+}
+
+-(void)doSearchFor:(NSString*)searchString maxResults:(NSUInteger)maxResults;
+{
+  if(isSearching) {
+    NSLog(@"I'm busy searching allreay");
+    return;
+  }
+  isSearching = YES;
+  [[SpotSession defaultSession] searchFor:searchString maxResults:maxResults respondTo:self selector:@selector(receiveAsyncSearch:)];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar_;
 {
   [self.view addSubview:whileSearchingView];
-  if(searchBar_.text)
-    suggestionDataSource.searchResults = [SpotSearch searchFor:searchBar_.text maxResults:5];
+  if(searchBar_.text.length > 0){
+    NSLog(@"Doing initial search");
+    [self doSearchFor:searchBar_.text maxResults:5];
+  }
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
@@ -197,18 +217,20 @@
   [whileSearchingView removeFromSuperview];
 }
 
--(void)receiveAsyncSearch:(SpotSearch *)search;
-{
-  suggestionDataSource.searchResults = search;
-}
+
 
 -(void)doQuickSearch:(NSTimer*)theTimer;
 {
+  //TODO: ProgressIndicator!
+  
+  NSLog(@"Doing quickSearch");
+  suggestionDataSource.searchResults = nil;
+  suggestionDataSource.suggestions = nil;
+  [whileSearchingView reloadData];
+  
   self.quickSearchTimer = nil;
   NSString *searchText = [theTimer.userInfo objectForKey:@"text"];
-//  suggestionDataSource.searchResults = [SpotSearch searchFor:searchText maxResults:5];
-  [[SpotSession defaultSession] searchFor:searchText maxResults:5 respondTo:self selector:@selector(receiveAsyncSearch:)];
-  [whileSearchingView reloadData];  
+  [self doSearchFor:searchText maxResults:5];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar_ textDidChange:(NSString *)searchText;
@@ -216,9 +238,9 @@
 	// Do short search maybe
   [quickSearchTimer invalidate];
   self.quickSearchTimer = nil;
-  
+
   if([searchText length] > 0){
-    self.quickSearchTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(doQuickSearch:) userInfo:[NSDictionary dictionaryWithObject:searchText forKey:@"text"] repeats:NO];
+    self.quickSearchTimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(doQuickSearch:) userInfo:[NSDictionary dictionaryWithObject:searchText forKey:@"text"] repeats:NO];
   } else {
     suggestionDataSource.searchResults = nil;
     //Show latest searches
@@ -226,27 +248,33 @@
   }
 }
 
--(void)searchForString:(NSString*)string;
+-(void)fullSearchResponse:(SpotSearch*)results;
 {
-  // Do extensive search
-	self.searchResults = nil;
-  //NSLog(@"searching");
-	self.searchResults = [SpotSearch searchFor:string maxResults:50];
+  NSString *searchString = results.query;
+  self.searchResults = [SpotSearch searchFor:searchString maxResults:50];
   //save last search if it generated any results
   if(searchResults && searchResults.totalAlbums || searchResults.totalTracks || searchResults.totalArtists){
-    [[NSUserDefaults standardUserDefaults] setObject:string forKey:@"lastSearch"];
+    [[NSUserDefaults standardUserDefaults] setObject:searchString forKey:@"lastSearch"];
     NSMutableArray *latest = [[[NSUserDefaults standardUserDefaults] objectForKey:@"latestSearches"] mutableCopy];
-    if(![latest containsObject:string]){
+    if(![latest containsObject:searchString]){
       if(!latest) latest = [NSMutableArray array];
       
-        [latest insertObject:string atIndex:0];
+      [latest insertObject:searchString atIndex:0];
       while(latest.count > 10){
         [latest removeLastObject];
       }
       [[NSUserDefaults standardUserDefaults] setObject:latest forKey:@"latestSearches"];
       NSLog(@"saved latest:%@", latest);
     }
-  }
+  }  
+}
+
+-(void)searchForString:(NSString*)string;
+{
+  // Do extensive search
+	self.searchResults = nil;
+  //NSLog(@"searching");
+  [[SpotSession defaultSession] searchFor:string maxResults:50 respondTo:self selector:@selector(fullSearchResponse:)];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar_;  

@@ -55,7 +55,7 @@ enum {
   if(searchResults)
     return @"Search results";
   else
-    return nil;
+    return @"Searching...";
 }
 
 

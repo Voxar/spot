@@ -30,10 +30,14 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;    // fixed font style. use custom view (UILabel) if you want something different
 {
-	if(searchResults) 
-    return @"Suggestions";
-  else
+	if(!searchResults && suggestions) 
     return @"Latest Searches";
+  else if(searchResults && suggestions)
+    return @"Suggestions";
+  else if(!searchResults && !suggestions)
+    return @"Getting suggestions";
+  else
+    return @"undefined";
 }
 
 
